@@ -288,6 +288,292 @@ footer{display:flex;justify-content:space-between;gap:25px;color:#666;font-size:
   }
 </style>
 
+<!-- BRAIN MAZE GAME -->
+<section class="brain-maze">
+  <div class="maze-header">
+    <span>mini brain maze</span>
+    <span id="maze-status">find the exit →</span>
+  </div>
+
+  <div class="maze-wrap">
+    <div id="maze"></div>
+  </div>
+
+  <div class="maze-footer">
+    <span>use ↑ ↓ ← →</span>
+    <span id="maze-timer">00:00</span>
+  </div>
+
+  <div id="maze-win" class="maze-win">
+    <div class="win-small">you made it out.</div>
+    <div class="win-big">now let's see what<br>came out of your brain →</div>
+    <button id="work-button">VIEW THE WORK</button>
+  </div>
+</section>
+
+<style>
+  .brain-maze {
+    width: 100%;
+    max-width: 600px;
+    margin: 80px auto;
+    font-family: Arial, sans-serif;
+    color: #111;
+  }
+
+  .maze-header,
+  .maze-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+  }
+
+  .maze-footer {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .maze-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid #111;
+    background: #fff;
+    position: relative;
+  }
+
+  #maze {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+  }
+
+  .maze-cell {
+    position: relative;
+  }
+
+  .wall {
+    background: #111;
+  }
+
+  .player::after {
+    content: "";
+    width: 55%;
+    height: 55%;
+    border-radius: 50%;
+    background: #ff3158;
+    position: absolute;
+    top: 22.5%;
+    left: 22.5%;
+  }
+
+  .exit::after {
+    content: "×";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .maze-win {
+    display: none;
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px solid #111;
+    padding-top: 25px;
+  }
+
+  .win-small {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .win-big {
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  #work-button {
+    border: 1px solid #111;
+    background: #111;
+    color: #fff;
+    padding: 12px 18px;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  #work-button:hover {
+    background: #fff;
+    color: #111;
+  }
+
+  @media (max-width: 600px) {
+    .brain-maze {
+      margin: 50px auto;
+    }
+
+    .win-big {
+      font-size: 19px;
+    }
+  }
+</style>
+
+<script>
+  const mazeMap = [
+    "###############",
+    "#S#           #",
+    "# # ######### #",
+    "# # #       # #",
+    "# # # ##### # #",
+    "#   # #   #   #",
+    "##### # # #####",
+    "#     # #     #",
+    "# ##### ##### #",
+    "#     #       #",
+    "# ### ####### #",
+    "#   #         #",
+    "### ######### #",
+    "#             E",
+    "###############"
+  ];
+
+  const maze = document.getElementById("maze");
+  const status = document.getElementById("maze-status");
+  const timer = document.getElementById("maze-timer");
+  const winScreen = document.getElementById("maze-win");
+  const workButton = document.getElementById("work-button");
+
+  let player = { row: 1, col: 1 };
+  let seconds = 0;
+  let gameStarted = false;
+  let gameWon = false;
+
+  function drawMaze() {
+    maze.innerHTML = "";
+
+    mazeMap.forEach((row, r) => {
+      [...row].forEach((cell, c) => {
+        const div = document.createElement("div");
+        div.classList.add("maze-cell");
+
+        if (cell === "#") {
+          div.classList.add("wall");
+        }
+
+        if (cell === "E") {
+          div.classList.add("exit");
+        }
+
+        if (player.row === r && player.col === c) {
+          div.classList.add("player");
+        }
+
+        maze.appendChild(div);
+      });
+    });
+  }
+
+  function startGame() {
+    if (gameStarted) return;
+
+    gameStarted = true;
+
+    setInterval(() => {
+      if (!gameWon) {
+        seconds++;
+
+        const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+        const secs = String(seconds % 60).padStart(2, "0");
+
+        timer.textContent = `${mins}:${secs}`;
+      }
+    }, 1000);
+  }
+
+  function movePlayer(rowChange, colChange) {
+    if (gameWon) return;
+
+    startGame();
+
+    const newRow = player.row + rowChange;
+    const newCol = player.col + colChange;
+
+    if (
+      newRow < 0 ||
+      newRow >= mazeMap.length ||
+      newCol < 0 ||
+      newCol >= mazeMap[newRow].length
+    ) {
+      return;
+    }
+
+    if (mazeMap[newRow][newCol] === "#") {
+      status.textContent = "bonk.";
+      setTimeout(() => {
+        if (!gameWon) status.textContent = "find the exit →";
+      }, 500);
+      return;
+    }
+
+    player.row = newRow;
+    player.col = newCol;
+
+    drawMaze();
+
+    if (mazeMap[newRow][newCol] === "E") {
+      winGame();
+    }
+  }
+
+  function winGame() {
+    gameWon = true;
+
+    status.textContent = "brain successfully escaped.";
+    winScreen.style.display = "block";
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
+    ) {
+      event.preventDefault();
+    }
+
+    if (event.key === "ArrowUp") {
+      movePlayer(-1, 0);
+    }
+
+    if (event.key === "ArrowDown") {
+      movePlayer(1, 0);
+    }
+
+    if (event.key === "ArrowLeft") {
+      movePlayer(0, -1);
+    }
+
+    if (event.key === "ArrowRight") {
+      movePlayer(0, 1);
+    }
+  });
+
+  workButton.addEventListener("click", () => {
+    document.getElementById("work").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+
+  drawMaze();
+</script>
+
 <section class="band" id="thinking">
   <div class="label">the thing I understand</div>
   <p class="big">The opportunity isn't just to make the brand <em>look good.</em> It's to make a new possibility feel <em>credible, human and worth believing in.</em></p>
