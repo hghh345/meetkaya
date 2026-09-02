@@ -130,6 +130,164 @@ footer{display:flex;justify-content:space-between;gap:25px;color:#666;font-size:
   <a class="scroll" href="#thinking">↓ keep going</a>
 </section>
 
+<!-- LIVE THOUGHTS -->
+<div class="thoughts-live">
+  <div class="thoughts-status">
+    <span class="status-light"></span>
+    <span>THOUGHTS / LIVE</span>
+    <span class="status-note">unfortunately</span>
+  </div>
+
+  <div class="thoughts-scroller">
+    <div class="thoughts-track">
+      <span>what's actually the problem here?</span>
+      <span>→</span>
+      <span>who are we asking to care?</span>
+      <span>→</span>
+      <span>what do they believe already?</span>
+      <span>→</span>
+      <span>where's the tension?</span>
+      <span>→</span>
+      <span>what could only this brand say?</span>
+      <span>→</span>
+      <span>okay, now make it tangible.</span>
+      <span>→</span>
+      <span>does the idea survive contact with the real world?</span>
+      <span>→</span>
+      <span>can something unfamiliar feel familiar?</span>
+      <span>→</span>
+      <span>wait. that's interesting.</span>
+      <span>→</span>
+
+      <!-- duplicate for seamless looping -->
+      <span>what's actually the problem here?</span>
+      <span>→</span>
+      <span>who are we asking to care?</span>
+      <span>→</span>
+      <span>what do they believe already?</span>
+      <span>→</span>
+      <span>where's the tension?</span>
+      <span>→</span>
+      <span>what could only this brand say?</span>
+      <span>→</span>
+      <span>okay, now make it tangible.</span>
+      <span>→</span>
+      <span>does the idea survive contact with the real world?</span>
+      <span>→</span>
+      <span>can something unfamiliar feel familiar?</span>
+      <span>→</span>
+      <span>wait. that's interesting.</span>
+      <span>→</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .thoughts-live {
+    width: 100%;
+    overflow: hidden;
+    margin: 40px 0 0;
+  }
+
+  .thoughts-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 24px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .status-light {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    animation: liveBlink 1.2s ease-in-out infinite;
+  }
+
+  .status-note {
+    opacity: 0.45;
+    letter-spacing: 0.08em;
+  }
+
+  .thoughts-scroller {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    padding: 13px 0;
+  }
+
+  .thoughts-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    animation: thoughtsScroll 45s linear infinite;
+    will-change: transform;
+  }
+
+  .thoughts-track span {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+
+  .thoughts-track span:nth-child(even) {
+    opacity: 0.35;
+  }
+
+  .thoughts-scroller:hover .thoughts-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes thoughtsScroll {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes liveBlink {
+    0%, 100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .thoughts-live {
+      margin-top: 28px;
+    }
+
+    .thoughts-status {
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 9px;
+    }
+
+    .thoughts-track span {
+      font-size: 12px;
+    }
+
+    .thoughts-track {
+      gap: 14px;
+      animation-duration: 38s;
+    }
+  }
+</style>
+
 <div class="marquee"><div class="marquee-track">
   <span>science → story</span><span>strategy → expression</span><span>idea → execution</span><span>curiosity → clarity</span>
   <span>science → story</span><span>strategy → expression</span><span>idea → execution</span><span>curiosity → clarity</span>
