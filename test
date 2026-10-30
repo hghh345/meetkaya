@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inside her brain / kaya</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+:root {
+  --black: #111;
+  --white: #eae9e4;
+  --grey: #888;
+  --line: rgba(0,0,0,.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  cursor: crosshair;
+}
+
+/* subtle paper texture */
+
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  opacity: .12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 5%;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 8vh 7% 100px;
+}
+
+.top-note {
+  font-size: 11px;
+  margin-bottom: 35px;
+  color: var(--grey);
+}
+
+h1 {
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: normal;
+  line-height: 1.1;
+  max-width: 850px;
+  margin: 0 0 25px;
+}
+
+h1 span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 8px;
+}
+
+.intro {
+  max-width: 550px;
+  font-size: 14px;
+  margin-bottom: 65px;
+}
+
+.brain-area {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 8%;
+  align-items: center;
+}
+
+.brain {
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+}
+
+.brain img {
+  display: block;
+  width: 100%;
+  filter: grayscale(1) contrast(1.2);
+  mix-blend-mode: multiply;
+}
+
+.brain-label {
+  position: absolute;
+  font-size: 10px;
+  background: var(--white);
+  padding: 3px 6px;
+}
+
+.label-one { top: 15%; left: 5%; }
+.label-two { top: 30%; right: 0; }
+.label-three { bottom: 25%; left: 0; }
+
+.navigation {
+  border-top: 1px solid var(--black);
+}
+
+.navigation button {
+  width: 100%;
+  padding: 18px 5px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--black);
+  font-family: inherit;
+  font-size: 14px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  cursor: crosshair;
+}
+
+.navigation button:hover {
+  padding-left: 15px;
+  background: #deddd7;
+}
+
+.navigation .number {
+  color: var(--grey);
+  margin-right: 15px;
+}
+
+.navigation .arrow {
+  font-size: 18px;
+}
+
+.nav-heading {
+  font-size: 10px;
+  margin-bottom: 15px;
+  color: var(--grey);
+}
+
+.small-note {
+  margin-top: 30px;
+  font-size: 10px;
+  color: var(--grey);
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 25px 5%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+/* THE PORTALS */
+
+.portal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: var(--white);
+  display: none;
+  overflow-y: auto;
+  padding: 30px 7% 80px;
+}
+
+.portal.open {
+  display: block;
+}
+
+.portal-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  font-size: 11px;
+}
+
+.close {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: crosshair;
+  text-decoration: underline;
+}
+
+.portal-body {
+  max-width: 720px;
+  margin: 12vh auto;
+}
+
+.portal-body h2 {
+  font-weight: normal;
+  font-size: clamp(35px, 6vw, 65px);
+  line-height: 1.15;
+  margin-bottom: 40px;
+}
+
+.portal-body p {
+  max-width: 620px;
+  margin-bottom: 25px;
+}
+
+.portal-body h3 {
+  font-weight: normal;
+  font-size: 13px;
+  text-decoration: underline;
+  margin-top: 50px;
+}
+
+.portal-body li {
+  margin: 12px 0;
+}
+
+.portal-index {
+  color: var(--grey);
+  font-size: 11px;
+  margin-bottom: 20px;
+}
+
+@media(max-width: 750px) {
+  .brain-area {
+    grid-template-columns: 1fr;
+  }
+
+  .brain {
+    max-width: 450px;
+  }
+
+  .intro {
+    margin-bottom: 40px;
+  }
+
+  footer {
+    gap: 15px;
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <span>inside her brain / personal archive</span>
+  <span>kaya / 2026</span>
+</header>
+
+<main>
+
+  <div class="top-note">
+    [ a collection of thoughts, observations &amp; working ideas ]
+  </div>
+
+  <h1>
+    i find the story.<br>
+    i connect the dots.<br>
+    <span>i make it real.</span>
+  </h1>
+
+  <p class="intro">
+    a mind preoccupied with patterns, people, ideas and the
+    things that happen when they collide.
+
+    <br><br>
+
+    i'm kaya. i work with brands, stories and ideas —
+    figuring out what they mean, what makes them interesting,
+    and what they could become.
+  </p>
+
+  <section class="brain-area">
+
+    <div class="brain">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Gray728.svg/1024px-Gray728.svg.png"
+        alt="Anatomical brain illustration"
+      >
+      <span class="brain-label label-one">thought / 001</span>
+      <span class="brain-label label-two">thought / 002</span>
+      <span class="brain-label label-three">thought / 003</span>
+    </div>
+
+    <div>
+      <div class="nav-heading">
+        [ select an entry to explore ]
+      </div>
+
+      <nav class="navigation">
+        <button onclick="openPortal('what')">
+          <span><span class="number">01.</span> what i do</span>
+          <span class="arrow">↗</span>
+        </button>
+
+        <button onclick="openPortal('think')">
+          <span><span class="number">02.</span> how i think</span>
+          <span class="arrow">↗</span>
+        </button>
+
+        <button onclick="openPortal('make')">
+          <span><span class="number">03.</span> what i make</span>
+          <span class="arrow">↗</span>
+        </button>
+
+        <button onclick="openPortal('mind')">
+          <span><span class="number">04.</span> things on my mind</span>
+          <span class="arrow">↗</span>
+        </button>
+      </nav>
+
+      <div class="small-note">
+        no particular order. follow your curiosity.
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <span>inside her brain © 2026</span>
+  <span>an ongoing experiment in thinking.</span>
+</footer>
+
+<!-- ENTRY 01 -->
+
+<section class="portal" id="what">
+  <div class="portal-header">
+    <span>inside her brain / entry 001</span>
+    <button class="close" onclick="closePortals()">[ close × ]</button>
+  </div>
+
+  <div class="portal-body">
+    <div class="portal-index">01 / what i do</div>
+    <h2>i find the story.<br>i make it matter.</h2>
+
+    <p>
+      i'm a brand strategist and storyteller with a particular
+      talent for seeing connections that other people might miss.
+    </p>
+
+    <p>
+      i work at the intersection of strategy, psychology,
+      research and creative execution — helping businesses
+      uncover what makes them interesting, understand how
+      they should communicate it, and turn that thinking
+      into something tangible.
+    </p>
+
+    <h3>things i'm particularly good at:</h3>
+    <ul>
+      <li>finding the signal in the noise</li>
+      <li>building compelling brand narratives</li>
+      <li>translating complex ideas into clear messaging</li>
+      <li>connecting research, insight and creative direction</li>
+      <li>turning strategy into actual things people can use</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ENTRY 02 -->
+
+<section class="portal" id="think">
+  <div class="portal-header">
+    <span>inside her brain / entry 002</span>
+    <button class="close" onclick="closePortals()">[ close × ]</button>
+  </div>
+
+  <div class="portal-body">
+    <div class="portal-index">02 / how i think</div>
+    <h2>my brain doesn't work in straight lines.</h2>
+
+    <p>
+      i'm a pattern-seeker, an investigator and a natural
+      synthesiser.
+    </p>
+
+    <p>
+      i'm interested in why things work, why they don't,
+      and what might be hiding underneath the obvious explanation.
+    </p>
+
+    <p>
+      i like to get inside a problem before jumping to a solution.
+      i look at the context, the people involved, the psychology
+      behind their decisions, and the connections between
+      seemingly unrelated things.
+    </p>
+
+    <h3>my process, more or less:</h3>
+    <ul>
+      <li>observe — collect information and ask questions</li>
+      <li>connect — look for patterns and contradictions</li>
+      <li>understand — identify the real problem</li>
+      <li>imagine — explore what could be possible</li>
+      <li>build — translate the thinking into something tangible</li>
+    </ul>
+
+    <p>
+      i don't believe strategy should live in a presentation
+      that nobody opens again.
+    </p>
+  </div>
+</section>
+
+<!-- ENTRY 03 -->
+
+<section class="portal" id="make">
+  <div class="portal-header">
+    <span>inside her brain / entry 003</span>
+    <button class="close" onclick="closePortals()">[ close × ]</button>
+  </div>
+
+  <div class="portal-body">
+    <div class="portal-index">03 / what i make</div>
+    <h2>thinking is only the beginning.</h2>
+
+    <p>
+      i like ideas that make their way out of the presentation
+      and into the real world.
+    </p>
+
+    <h3>strategy &amp; storytelling</h3>
+    <ul>
+      <li>brand positioning</li>
+      <li>brand narratives</li>
+      <li>messaging frameworks</li>
+      <li>audience research and insights</li>
+    </ul>
+
+    <h3>content &amp; campaigns</h3>
+    <ul>
+      <li>campaign concepts and messaging</li>
+      <li>editorial strategy</li>
+      <li>copywriting and long-form content</li>
+      <li>newsletters and content systems</li>
+    </ul>
+
+    <h3>digital &amp; creative execution</h3>
+    <ul>
+      <li>website content and copy</li>
+      <li>pitch decks and presentations</li>
+      <li>creative concepts and digital experiences</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ENTRY 04 -->
+
+<section class="portal" id="mind">
+  <div class="portal-header">
+    <span>inside her brain / entry 004</span>
+    <button class="close" onclick="closePortals()">[ close × ]</button>
+  </div>
+
+  <div class="portal-body">
+    <div class="portal-index">04 / things on my mind</div>
+    <h2>curiosity is a professional skill.</h2>
+
+    <p>
+      i'm interested in the things that sit between disciplines:
+      psychology and business, creativity and strategy,
+      human behaviour and technology.
+    </p>
+
+    <p>
+      i believe the most interesting solutions often come from
+      looking at a familiar problem through an unfamiliar lens.
+    </p>
+
+    <p>
+      this is a place for unfinished thoughts, strange
+      connections, observations and ideas that might turn
+      into something interesting.
+    </p>
+  </div>
+</section>
+
+<script>
+function openPortal(id) {
+  closePortals();
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePortals() {
+  document.querySelectorAll('.portal').forEach(portal => {
+    portal.classList.remove('open');
+  });
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePortals();
+});
+</script>
+
+</body>
+</html>
