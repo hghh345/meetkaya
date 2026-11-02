@@ -1,513 +1,1059 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="brain.png">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>inside her brain / kaya</title>
-
+<title>hi, radial. I'm Kaya. </title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-
-:root {
-  --black: #111;
-  --white: #eae9e4;
-  --grey: #888;
-  --line: rgba(0,0,0,.25);
+:root{
+  --bg:#070707; --fg:#f3f0e8; --muted:#8f8d87; --line:#292929;
+  --accent:#b8ff4a; --warm:#f2d4c5; --sans:Arial,Helvetica,sans-serif;
+  --mono:"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{margin:0;background:
+  radial-gradient(circle at 50% 20%,rgba(184,255,74,.055),transparent 28%),
+  var(--bg);color:var(--fg);font-family:var(--mono);overflow-x:hidden}
+button,a{font:inherit;color:inherit}
+a{text-decoration:none}
+.site{width:min(1440px,100%);margin:auto;padding:28px 42px 70px}
+header{display:flex;justify-content:space-between;gap:30px;align-items:flex-start}
+.eyebrow{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+h1{font-family:var(--sans);font-size:clamp(58px,8vw,132px);line-height:.78;letter-spacing:-.075em;margin:0;font-weight:700}
+.intro{width:min(480px,46vw);font-size:15px;line-height:1.55;color:#c9c7c1;margin-top:8px}
+.intro strong{color:#fff}
+.role{text-align:right;font-size:11px;line-height:1.55;color:#aaa;text-transform:uppercase;letter-spacing:.08em}
+.role b{color:var(--accent);font-weight:400}
+.hero{position:relative;min-height:770px;display:grid;place-items:center}
+.brain-wrap{position:relative;width:min(700px,74vw);aspect-ratio:600/710}
+.brain-wrap svg{width:100%;height:100%;overflow:visible}
+.outline{fill:rgba(255,255,255,.006);stroke:rgba(255,255,255,.75);stroke-width:1.5}
+.fissure{fill:none;stroke:rgba(255,255,255,.35);stroke-width:1.1}
+.node{fill:#fff;filter:drop-shadow(0 0 7px rgba(255,255,255,.85))}
+.zone{
+ position:absolute; width:205px; padding:15px 17px; border:1px solid transparent;
+ background:rgba(7,7,7,.72); text-align:left; cursor:pointer;
+ transition:.25s; border-radius:45% 55% 50% 50%;
+}
+.zone:hover{border-color:#454545;background:rgba(255,255,255,.035);transform:scale(1.025)}
+.zone:hover .znum{color:var(--accent)}
+.znum{font-size:10px;color:#777;display:block;margin-bottom:7px}
+.ztitle{font-family:var(--sans);font-size:25px;letter-spacing:-.045em;display:block}
+.zcopy{font-size:11px;line-height:1.45;color:#96938d;display:block;margin-top:7px}
+.zarrow{display:block;margin-top:10px}
+.z1{left:1%;top:37%}.z2{left:30%;top:7%}.z3{right:1%;top:36%}.z4{left:19%;bottom:7%}.z5{right:7%;bottom:10%}
+.brain-note{position:absolute;right:0;top:48%;font-size:10px;line-height:1.5;color:#777;width:165px}
+.brain-note:before{content:"";display:block;width:35px;border-top:1px solid #555;margin-bottom:9px}
+.scroll{position:absolute;left:0;bottom:35px;color:var(--accent);font-size:11px}
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
+.marquee-track{display:inline-block;padding:18px 0;animation:slide 28s linear infinite;color:#777;font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+.marquee-track span{margin-right:55px}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.band{display:grid;grid-template-columns:1fr 2.3fr;gap:45px;padding:75px 0;border-bottom:1px solid var(--line)}
+.label{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.1em}
+.big{font-family:var(--sans);font-size:clamp(34px,5vw,76px);line-height:.93;letter-spacing:-.065em;margin:0;max-width:930px}
+.big em{color:var(--accent);font-style:normal}
+.section{display:grid;grid-template-columns:1fr 2.3fr;gap:45px;padding:70px 0;border-bottom:1px solid var(--line)}
+.section h2{font-family:var(--sans);font-size:clamp(38px,5.2vw,76px);line-height:.91;letter-spacing:-.065em;margin:0 0 25px}
+.section p{color:#aaa;line-height:1.7;max-width:730px;margin:0 0 18px}
+.kicker{font-size:11px;color:var(--accent);margin-bottom:18px;text-transform:uppercase;letter-spacing:.08em}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:27px}
+.pill{border:1px solid #363636;border-radius:100px;padding:9px 13px;font-size:10px;color:#aaa}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.card{border:1px solid #303030;padding:22px;min-height:190px;transition:.25s}
+.card:hover{border-color:#666;transform:translateY(-3px)}
+.card .num{font-size:10px;color:var(--accent);margin-bottom:35px}
+.card h3{font-family:var(--sans);font-size:24px;letter-spacing:-.04em;margin:0 0 10px}
+.card p{font-size:11px;line-height:1.55;margin:0;color:#888}
+.quote{font-family:var(--sans);font-size:clamp(30px,4vw,60px);line-height:.97;letter-spacing:-.055em;max-width:900px}
+.quote span{color:var(--accent)}
+.cta{padding:90px 0 55px;text-align:center}
+.cta h2{font-family:var(--sans);font-size:clamp(52px,9vw,130px);line-height:.8;letter-spacing:-.08em;margin:0 0 35px}
+.cta p{max-width:620px;margin:0 auto 28px;color:#aaa;line-height:1.65}
+.cta a{display:inline-block;border:1px solid #555;border-radius:100px;padding:13px 19px;font-size:11px}
+.cta a:hover{background:var(--accent);color:#000;border-color:var(--accent)}
+footer{display:flex;justify-content:space-between;gap:25px;color:#666;font-size:10px;padding-top:30px}
+.brain-wrap svg{
+  position:relative;
+  z-index:1;
 }
 
-* {
-  box-sizing: border-box;
+.brain-wrap .zone{
+  z-index:2;
 }
 
-body {
-  margin: 0;
-  background: var(--white);
-  color: var(--black);
-  font-family: 'Special Elite', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.7;
-  cursor: crosshair;
+.brain-wrap .zone .znum,
+.brain-wrap .zone .ztitle,
+.brain-wrap .zone .zcopy,
+.brain-wrap .zone .zarrow{
+  position:relative;
+  z-index:3;
 }
-
-/* subtle paper texture */
-
-body:before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 20;
-  opacity: .12;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px 5%;
-  border-bottom: 1px solid var(--line);
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: lowercase;
-}
-
-main {
-  max-width: 1200px;
-  margin: auto;
-  padding: 8vh 7% 100px;
-}
-
-.top-note {
-  font-size: 11px;
-  margin-bottom: 35px;
-  color: var(--grey);
-}
-
-h1 {
-  font-size: clamp(38px, 6vw, 72px);
-  font-weight: normal;
-  line-height: 1.1;
-  max-width: 850px;
-  margin: 0 0 25px;
-}
-
-h1 span {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 8px;
-}
-
-.intro {
-  max-width: 550px;
-  font-size: 14px;
-  margin-bottom: 65px;
-}
-
-.brain-area {
-  display: grid;
-  grid-template-columns: 1.3fr .7fr;
-  gap: 8%;
-  align-items: center;
-}
-
-.brain {
-  position: relative;
-  max-width: 600px;
-  margin: auto;
-}
-
-.brain img {
-  display: block;
-  width: 100%;
-  filter: grayscale(1) contrast(1.2);
-  mix-blend-mode: multiply;
-}
-
-.brain-label {
-  position: absolute;
-  font-size: 10px;
-  background: var(--white);
-  padding: 3px 6px;
-}
-
-.label-one { top: 15%; left: 5%; }
-.label-two { top: 30%; right: 0; }
-.label-three { bottom: 25%; left: 0; }
-
-.navigation {
-  border-top: 1px solid var(--black);
-}
-
-.navigation button {
-  width: 100%;
-  padding: 18px 5px;
-  border: 0;
-  border-bottom: 1px solid var(--line);
-  background: transparent;
-  color: var(--black);
-  font-family: inherit;
-  font-size: 14px;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  cursor: crosshair;
-}
-
-.navigation button:hover {
-  padding-left: 15px;
-  background: #deddd7;
-}
-
-.navigation .number {
-  color: var(--grey);
-  margin-right: 15px;
-}
-
-.navigation .arrow {
-  font-size: 18px;
-}
-
-.nav-heading {
-  font-size: 10px;
-  margin-bottom: 15px;
-  color: var(--grey);
-}
-
-.small-note {
-  margin-top: 30px;
-  font-size: 10px;
-  color: var(--grey);
-}
-
-footer {
-  border-top: 1px solid var(--line);
-  padding: 25px 5%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-}
-
-/* THE PORTALS */
-
-.portal {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  background: var(--white);
-  display: none;
-  overflow-y: auto;
-  padding: 30px 7% 80px;
-}
-
-.portal.open {
-  display: block;
-}
-
-.portal-header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 20px;
-  font-size: 11px;
-}
-
-.close {
-  background: none;
-  border: none;
-  font: inherit;
-  cursor: crosshair;
-  text-decoration: underline;
-}
-
-.portal-body {
-  max-width: 720px;
-  margin: 12vh auto;
-}
-
-.portal-body h2 {
-  font-weight: normal;
-  font-size: clamp(35px, 6vw, 65px);
-  line-height: 1.15;
-  margin-bottom: 40px;
-}
-
-.portal-body p {
-  max-width: 620px;
-  margin-bottom: 25px;
-}
-
-.portal-body h3 {
-  font-weight: normal;
-  font-size: 13px;
-  text-decoration: underline;
-  margin-top: 50px;
-}
-
-.portal-body li {
-  margin: 12px 0;
-}
-
-.portal-index {
-  color: var(--grey);
-  font-size: 11px;
-  margin-bottom: 20px;
-}
-
-@media(max-width: 750px) {
-  .brain-area {
-    grid-template-columns: 1fr;
-  }
-
-  .brain {
-    max-width: 450px;
-  }
-
-  .intro {
-    margin-bottom: 40px;
-  }
-
-  footer {
-    gap: 15px;
-    flex-direction: column;
-  }
+@media(max-width:800px){
+ .site{padding:22px 18px 50px}.role{text-align:left;margin-top:18px}header{display:block}
+ .intro{width:100%;margin-top:25px}.hero{min-height:660px}
+ .brain-wrap{width:96vw;transform:translateY(-35px)}
+ .zone{width:145px;padding:9px}.ztitle{font-size:19px}.zcopy{font-size:9px}
+ .z1{left:-2%;top:39%}.z2{left:26%;top:5%}.z3{right:-2%;top:39%}.z4{left:13%;bottom:6%}.z5{right:1%;bottom:9%}
+ .brain-note{display:none}.scroll{bottom:12px}
+ .band,.section{grid-template-columns:1fr;gap:20px;padding:55px 0}.cards{grid-template-columns:1fr}
+ footer{flex-direction:column}
 }
 </style>
 </head>
-
 <body>
-
+<main class="site">
 <header>
-  <span>inside her brain / personal archive</span>
-  <span>kaya / 2026</span>
+  <div>
+    <div class="eyebrow">application / lead brand designer</div>
+    <h1>hi, i'm kaya</h1>
+    <div class="intro">
+      I could send you a résumé.<br>
+      Instead, I'm giving you a peek inside my <strong>brain.</strong><br><br>
+      I'm Kaya, a brand architect. I let my curiosity pull on every loose thread. Eventually, something interesting falls out.
+    </div>
+  </div>
+  <div class="role">kaya<br><b>✳</b><br>brand architect</div>
 </header>
 
-<main>
+<section class="hero" aria-label="interactive brain">
+  <div class="brain-wrap">
+    <svg viewBox="0 0 600 710" aria-hidden="true">
+      <path class="outline" d="M294 80C252 45 189 53 154 88 112 77 68 108 71 153 34 173 32 225 62 249 30 282 42 333 78 346 49 390 70 441 110 450 94 493 122 538 164 541 158 588 197 620 237 610 248 657 286 672 305 633 324 671 363 657 373 614 418 626 452 592 443 550 489 545 512 500 492 459 536 442 548 391 520 353 557 327 553 278 520 252 550 217 536 169 500 150 503 106 463 77 422 87 384 52 337 46 306 78Z"/>
+      <path class="fissure" d="M300 82C280 145 310 205 291 260 275 311 310 354 291 407 273 458 301 518 305 631"/>
+      <path class="fissure" d="M151 112C186 135 167 171 196 193 220 211 185 242 213 266"/>
+      <path class="fissure" d="M92 190C126 178 143 211 121 236 103 258 132 281 157 275"/>
+      <path class="fissure" d="M103 334C143 313 171 347 149 378 129 406 168 430 190 411"/>
+      <path class="fissure" d="M180 477C215 455 247 483 229 516 212 544 243 567 267 550"/>
+      <path class="fissure" d="M449 114C410 137 431 171 402 194 377 213 413 242 385 268"/>
+      <path class="fissure" d="M503 192C468 179 452 212 474 238 493 260 465 280 438 274"/>
+      <path class="fissure" d="M493 333C454 312 424 346 447 378 468 405 429 430 407 410"/>
+      <path class="fissure" d="M418 478C383 455 351 483 369 516 387 545 355 567 332 550"/>
+      <circle class="node" cx="154" cy="88" r="2.8"/><circle class="node" cx="294" cy="80" r="3.5"/>
+      <circle class="node" cx="500" cy="150" r="2.8"/><circle class="node" cx="78" cy="346" r="2.8"/>
+      <circle class="node" cx="520" cy="353" r="2.8"/><circle class="node" cx="164" cy="541" r="2.8"/>
+      <circle class="node" cx="443" cy="550" r="2.8"/><circle class="node" cx="305" cy="633" r="3.5"/>
+    </svg>
 
-  <div class="top-note">
-    [ a collection of thoughts, observations &amp; working ideas ]
+    <button class="zone z1" onclick="go('fit')"><span class="znum">01 / UNDERSTAND</span><span class="ztitle">the job</span><span class="zcopy">Why this role exists, and what I think Radial actually needs.</span><span class="zarrow">→</span></button>
+    <button class="zone z2" onclick="go('think')"><span class="znum">02 / THINK</span><span class="ztitle">strategy</span><span class="zcopy">Find the human truth before deciding what the brand should say.</span><span class="zarrow">→</span></button>
+    <button class="zone z3" onclick="go('make')"><span class="znum">03 / MAKE</span><span class="ztitle">the work</span><span class="zcopy">Brand, campaigns, websites and interactive experiences.</span><span class="zarrow">→</span></button>
+    <button class="zone z4" onclick="go('build')"><span class="znum">04 / BUILD</span><span class="ztitle">in the real world</span><span class="zcopy">Hands-on with fun and the messy part after the idea.</span><span class="zarrow">→</span></button>
+    <button class="zone z5" onclick="go('radial')"><span class="znum">05 / RADIAL</span><span class="ztitle">why this</span><span class="zcopy">Because this is a brand problem I actually want to spend time solving.</span><span class="zarrow">→</span></button>
+  </div>
+  <div class="brain-note">THIS BRAIN IS INTERACTIVE.<br>CLICK A REGION TO SEE HOW I THINK.</div>
+  <a class="scroll" href="#thinking">↓ keep going</a>
+</section>
+
+<!-- LIVE THOUGHTS -->
+<div class="thoughts-live">
+  <div class="thoughts-status">
+    <span class="status-light"></span>
+    <span>THOUGHTS / LIVE</span>
+    <span class="status-note">a peek inside</span>
   </div>
 
-  <h1>
-    i find the story.<br>
-    i connect the dots.<br>
-    <span>i make it real.</span>
-  </h1>
+  <div class="thoughts-scroller">
+    <div class="thoughts-track">
+      <span>what's actually the problem here?</span>
+      <span>→</span>
+      <span>who are we asking to care?</span>
+      <span>→</span>
+      <span>what do they believe already?</span>
+      <span>→</span>
+      <span>the internet should be more fun</span>
+      <span>→</span>
+      <span>what could only this brand say?</span>
+      <span>→</span>
+      <span>how to make mental health care more accessible?</span>
+      <span>→</span>
+      <span>does the idea survive contact with the real world?</span>
+      <span>→</span>
+      <span>can something unfamiliar feel familiar?</span>
+      <span>→</span>
+      <span>i feel like baking cookies.</span>
+      <span>→</span>
 
-  <p class="intro">
-    a mind preoccupied with patterns, people, ideas and the
-    things that happen when they collide.
+      <!-- duplicate for seamless looping -->
+      <span>what's actually the problem here?</span>
+      <span>→</span>
+      <span>who are we asking to care?</span>
+      <span>→</span>
+      <span>what do they believe already?</span>
+      <span>→</span>
+      <span>the internet should be more fun</span>
+      <span>→</span>
+      <span>what could only this brand say?</span>
+      <span>→</span>
+      <span>how to make mental health care more accessible?</span>
+      <span>→</span>
+      <span>does the idea survive contact with the real world?</span>
+      <span>→</span>
+      <span>is the design engaging?</span>
+      <span>→</span>
+      <span>i can't believe dolly parton is gone.</span>
+      <span>→</span>
+    </div>
+  </div>
+</div>
 
-    <br><br>
+<style>
+  .thoughts-live {
+    width: 100%;
+    overflow: hidden;
+    margin: 40px 0 0;
+  }
 
-    i'm kaya. i work with brands, stories and ideas —
-    figuring out what they mean, what makes them interesting,
-    and what they could become.
-  </p>
+  .thoughts-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 24px 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
 
-  <section class="brain-area">
+  .status-light {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    display: inline-block;
+    animation: liveBlink 1.2s ease-in-out infinite;
+  }
 
-    <div class="brain">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Gray728.svg/1024px-Gray728.svg.png"
-        alt="Anatomical brain illustration"
-      >
-      <span class="brain-label label-one">thought / 001</span>
-      <span class="brain-label label-two">thought / 002</span>
-      <span class="brain-label label-three">thought / 003</span>
+  .status-note {
+    opacity: 0.45;
+    letter-spacing: 0.08em;
+  }
+
+  .thoughts-scroller {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    padding: 13px 0;
+  }
+
+  .thoughts-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    animation: thoughtsScroll 45s linear infinite;
+    will-change: transform;
+  }
+
+  .thoughts-track span {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+
+  .thoughts-track span:nth-child(even) {
+    opacity: 0.35;
+  }
+
+  .thoughts-scroller:hover .thoughts-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes thoughtsScroll {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes liveBlink {
+    0%, 100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.2;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .thoughts-live {
+      margin-top: 28px;
+    }
+
+    .thoughts-status {
+      padding-left: 16px;
+      padding-right: 16px;
+      font-size: 9px;
+    }
+
+    .thoughts-track span {
+      font-size: 12px;
+    }
+
+    .thoughts-track {
+      gap: 14px;
+      animation-duration: 38s;
+    }
+  }
+</style>
+
+<!-- A LITTLE BRAIN EXERCISE -->
+<section class="brain-exercise">
+
+  <div class="exercise-intro">
+    <div class="exercise-label">a little brain exercise</div>
+    <div class="exercise-subtitle">there's a prize at the end.</div>
+  </div>
+
+  <div class="maze-wrap">
+    <div id="maze"></div>
+  </div>
+
+  <!-- DESKTOP / MOBILE INSTRUCTIONS -->
+  <div class="maze-instructions">
+    <span class="desktop-instruction">use your arrow keys</span>
+    <span class="mobile-instruction">tap to move</span>
+    <span id="maze-timer">00:00</span>
+  </div>
+
+  <!-- MOBILE CONTROLS -->
+  <div class="maze-controls">
+    <button class="maze-arrow up" data-move="up">↑</button>
+
+    <div class="maze-arrow-row">
+      <button class="maze-arrow" data-move="left">←</button>
+      <button class="maze-arrow" data-move="down">↓</button>
+      <button class="maze-arrow" data-move="right">→</button>
+    </div>
+  </div>
+
+  <!-- PRIZE -->
+  <div id="maze-win" class="maze-win">
+
+    <div class="win-small">you did it!</div>
+
+    <div class="win-title">
+      here's your prize:
     </div>
 
-    <div>
-      <div class="nav-heading">
-        [ select an entry to explore ]
-      </div>
-
-      <nav class="navigation">
-        <button onclick="openPortal('what')">
-          <span><span class="number">01.</span> what i do</span>
-          <span class="arrow">↗</span>
-        </button>
-
-        <button onclick="openPortal('think')">
-          <span><span class="number">02.</span> how i think</span>
-          <span class="arrow">↗</span>
-        </button>
-
-        <button onclick="openPortal('make')">
-          <span><span class="number">03.</span> what i make</span>
-          <span class="arrow">↗</span>
-        </button>
-
-        <button onclick="openPortal('mind')">
-          <span><span class="number">04.</span> things on my mind</span>
-          <span class="arrow">↗</span>
-        </button>
-      </nav>
-
-      <div class="small-note">
-        no particular order. follow your curiosity.
-      </div>
+    <div class="brain-prize">
+      ⭐
+      <span>a gold star for your brain and a link to my work</span>
     </div>
 
-  </section>
-</main>
+    <div class="win-message">
+      you may now continue<br>
+      with your regularly scheduled thinking.
+    </div>
 
-<footer>
-  <span>inside her brain © 2026</span>
-  <span>an ongoing experiment in thinking.</span>
-</footer>
+    <a
+      class="work-button"
+      href="https://drive.google.com/file/d/1BX2Q-HoP1czIsF_0tHL99Jn8Klx35k4F/view?usp=sharing"
+      target="_blank"
+      rel="noopener"
+    >
+      VIEW MY WORK →
+    </a>
 
-<!-- ENTRY 01 -->
-
-<section class="portal" id="what">
-  <div class="portal-header">
-    <span>inside her brain / entry 001</span>
-    <button class="close" onclick="closePortals()">[ close × ]</button>
   </div>
 
-  <div class="portal-body">
-    <div class="portal-index">01 / what i do</div>
-    <h2>i find the story.<br>i make it matter.</h2>
-
-    <p>
-      i'm a brand strategist and storyteller with a particular
-      talent for seeing connections that other people might miss.
-    </p>
-
-    <p>
-      i work at the intersection of strategy, psychology,
-      research and creative execution — helping businesses
-      uncover what makes them interesting, understand how
-      they should communicate it, and turn that thinking
-      into something tangible.
-    </p>
-
-    <h3>things i'm particularly good at:</h3>
-    <ul>
-      <li>finding the signal in the noise</li>
-      <li>building compelling brand narratives</li>
-      <li>translating complex ideas into clear messaging</li>
-      <li>connecting research, insight and creative direction</li>
-      <li>turning strategy into actual things people can use</li>
-    </ul>
-  </div>
 </section>
 
-<!-- ENTRY 02 -->
 
-<section class="portal" id="think">
-  <div class="portal-header">
-    <span>inside her brain / entry 002</span>
-    <button class="close" onclick="closePortals()">[ close × ]</button>
-  </div>
+<style>
 
-  <div class="portal-body">
-    <div class="portal-index">02 / how i think</div>
-    <h2>my brain doesn't work in straight lines.</h2>
+  /* =========================
+     MAIN SECTION
+  ========================= */
 
-    <p>
-      i'm a pattern-seeker, an investigator and a natural
-      synthesiser.
-    </p>
+  .brain-exercise {
+    width: 100%;
+    max-width: 560px;
+    margin: 90px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 
-    <p>
-      i'm interested in why things work, why they don't,
-      and what might be hiding underneath the obvious explanation.
-    </p>
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
 
-    <p>
-      i like to get inside a problem before jumping to a solution.
-      i look at the context, the people involved, the psychology
-      behind their decisions, and the connections between
-      seemingly unrelated things.
-    </p>
 
-    <h3>my process, more or less:</h3>
-    <ul>
-      <li>observe — collect information and ask questions</li>
-      <li>connect — look for patterns and contradictions</li>
-      <li>understand — identify the real problem</li>
-      <li>imagine — explore what could be possible</li>
-      <li>build — translate the thinking into something tangible</li>
-    </ul>
+  /* =========================
+     INTRO
+  ========================= */
 
-    <p>
-      i don't believe strategy should live in a presentation
-      that nobody opens again.
-    </p>
-  </div>
-</section>
+  .exercise-intro {
+    text-align: center;
+    margin-bottom: 22px;
+  }
 
-<!-- ENTRY 03 -->
+  .exercise-label {
+    font-size: 22px;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    color: #fff;
+  }
 
-<section class="portal" id="make">
-  <div class="portal-header">
-    <span>inside her brain / entry 003</span>
-    <button class="close" onclick="closePortals()">[ close × ]</button>
-  </div>
+  .exercise-subtitle {
+    font-size: 12px;
+    opacity: 0.6;
+    color: #fff;
+  }
 
-  <div class="portal-body">
-    <div class="portal-index">03 / what i make</div>
-    <h2>thinking is only the beginning.</h2>
 
-    <p>
-      i like ideas that make their way out of the presentation
-      and into the real world.
-    </p>
+  /* =========================
+     MAZE
+  ========================= */
 
-    <h3>strategy &amp; storytelling</h3>
-    <ul>
-      <li>brand positioning</li>
-      <li>brand narratives</li>
-      <li>messaging frameworks</li>
-      <li>audience research and insights</li>
-    </ul>
+  .maze-wrap {
+    width: 100%;
+    aspect-ratio: 1 / 1;
 
-    <h3>content &amp; campaigns</h3>
-    <ul>
-      <li>campaign concepts and messaging</li>
-      <li>editorial strategy</li>
-      <li>copywriting and long-form content</li>
-      <li>newsletters and content systems</li>
-    </ul>
+    border: 1px solid #fff;
 
-    <h3>digital &amp; creative execution</h3>
-    <ul>
-      <li>website content and copy</li>
-      <li>pitch decks and presentations</li>
-      <li>creative concepts and digital experiences</li>
-    </ul>
-  </div>
-</section>
+    background: #fff;
 
-<!-- ENTRY 04 -->
+    box-sizing: border-box;
 
-<section class="portal" id="mind">
-  <div class="portal-header">
-    <span>inside her brain / entry 004</span>
-    <button class="close" onclick="closePortals()">[ close × ]</button>
-  </div>
+    touch-action: none;
+  }
 
-  <div class="portal-body">
-    <div class="portal-index">04 / things on my mind</div>
-    <h2>curiosity is a professional skill.</h2>
+  #maze {
+    width: 100%;
+    height: 100%;
 
-    <p>
-      i'm interested in the things that sit between disciplines:
-      psychology and business, creativity and strategy,
-      human behaviour and technology.
-    </p>
+    display: grid;
 
-    <p>
-      i believe the most interesting solutions often come from
-      looking at a familiar problem through an unfamiliar lens.
-    </p>
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(15, 1fr);
+  }
 
-    <p>
-      this is a place for unfinished thoughts, strange
-      connections, observations and ideas that might turn
-      into something interesting.
-    </p>
-  </div>
-</section>
+  .maze-cell {
+    position: relative;
+  }
+
+  .wall {
+    background: #111;
+  }
+
+  .player::after {
+    content: "";
+
+    width: 55%;
+    height: 55%;
+
+    border-radius: 50%;
+
+    background: #ff3158;
+
+    position: absolute;
+
+    top: 22.5%;
+    left: 22.5%;
+  }
+
+  .exit::after {
+    content: "×";
+
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 18px;
+
+    color: #111;
+  }
+
+
+  /* =========================
+     INSTRUCTIONS
+  ========================= */
+
+  .maze-instructions {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    font-size: 10px;
+
+    text-transform: lowercase;
+
+    opacity: 0.6;
+
+    color: #fff;
+  }
+
+  .mobile-instruction {
+    display: none;
+  }
+
+
+  /* =========================
+     MOBILE ARROW CONTROLS
+  ========================= */
+
+  .maze-controls {
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 18px;
+  }
+
+  .maze-arrow-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .maze-arrow {
+    width: 34px;
+    height: 30px;
+
+    padding: 0;
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    background: transparent;
+
+    color: #fff;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    touch-action: manipulation;
+  }
+
+  .maze-arrow:active {
+    background: #fff;
+    color: #111;
+  }
+
+
+  /* =========================
+     PRIZE
+  ========================= */
+
+  .maze-win {
+    display: none;
+
+    text-align: center;
+
+    margin-top: 35px;
+
+    padding-top: 28px;
+
+    border-top: 1px solid #fff;
+
+    color: #fff;
+  }
+
+  .win-small {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .win-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .brain-prize {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 34px;
+
+    margin-bottom: 20px;
+  }
+
+  .brain-prize span {
+    font-size: 12px;
+  }
+
+  .win-message {
+    font-size: 11px;
+
+    line-height: 1.4;
+
+    opacity: 0.65;
+
+    margin-bottom: 22px;
+  }
+
+  .work-button {
+    display: inline-block;
+
+    background: #fff;
+
+    color: #000;
+
+    padding: 12px 18px;
+
+    font-size: 10px;
+
+    text-decoration: none;
+
+    border: 1px solid #fff;
+
+    transition: all 0.2s ease;
+  }
+
+  .work-button:hover {
+    background: transparent;
+    color: #fff;
+  }
+
+
+  /* =========================
+     MOBILE
+  ========================= */
+
+  @media (max-width: 600px) {
+
+    .brain-exercise {
+      margin: 60px auto;
+      padding: 0 15px;
+    }
+
+    .exercise-label {
+      font-size: 19px;
+    }
+
+    .desktop-instruction {
+      display: none;
+    }
+
+    .mobile-instruction {
+      display: inline;
+    }
+
+    .maze-controls {
+      display: flex;
+    }
+
+    .win-title {
+      font-size: 18px;
+    }
+
+  }
+
+</style>
+
 
 <script>
-function openPortal(id) {
-  closePortals();
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
 
-function closePortals() {
-  document.querySelectorAll('.portal').forEach(portal => {
-    portal.classList.remove('open');
-  });
-  document.body.style.overflow = '';
-}
+  /* =========================
+     MAZE MAP
+  ========================= */
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closePortals();
-});
+  const mazeMap = [
+    "###############",
+    "#S#           #",
+    "# # ######### #",
+    "# # #       # #",
+    "# # # ##### # #",
+    "#   # #   #   #",
+    "##### # # #####",
+    "#     # #     #",
+    "# ##### ##### #",
+    "#     #       #",
+    "# ### ####### #",
+    "#   #         #",
+    "### ######### #",
+    "#             E",
+    "###############"
+  ];
+
+
+  const maze =
+    document.getElementById("maze");
+
+  const timer =
+    document.getElementById("maze-timer");
+
+  const winScreen =
+    document.getElementById("maze-win");
+
+
+  let player = {
+    row: 1,
+    col: 1
+  };
+
+  let seconds = 0;
+
+  let gameStarted = false;
+
+  let gameWon = false;
+
+
+  /* =========================
+     DRAW MAZE
+  ========================= */
+
+  function drawMaze() {
+
+    maze.innerHTML = "";
+
+    mazeMap.forEach((row, r) => {
+
+      [...row].forEach((cell, c) => {
+
+        const div =
+          document.createElement("div");
+
+        div.classList.add("maze-cell");
+
+
+        if (cell === "#") {
+          div.classList.add("wall");
+        }
+
+
+        if (cell === "E") {
+          div.classList.add("exit");
+        }
+
+
+        if (
+          player.row === r &&
+          player.col === c
+        ) {
+
+          div.classList.add("player");
+
+        }
+
+
+        maze.appendChild(div);
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================
+     TIMER
+  ========================= */
+
+  function startGame() {
+
+    if (gameStarted) return;
+
+    gameStarted = true;
+
+
+    setInterval(() => {
+
+      if (gameWon) return;
+
+      seconds++;
+
+
+      const mins =
+        String(Math.floor(seconds / 60))
+        .padStart(2, "0");
+
+
+      const secs =
+        String(seconds % 60)
+        .padStart(2, "0");
+
+
+      timer.textContent =
+        `${mins}:${secs}`;
+
+    }, 1000);
+
+  }
+
+
+  /* =========================
+     MOVE PLAYER
+  ========================= */
+
+  function movePlayer(rowChange, colChange) {
+
+    if (gameWon) return;
+
+    startGame();
+
+
+    const newRow =
+      player.row + rowChange;
+
+
+    const newCol =
+      player.col + colChange;
+
+
+    /* OUTSIDE MAZE */
+
+    if (
+      newRow < 0 ||
+      newRow >= mazeMap.length ||
+      newCol < 0 ||
+      newCol >= mazeMap[newRow].length
+    ) {
+
+      return;
+
+    }
+
+
+    /* WALL */
+
+    if (
+      mazeMap[newRow][newCol] === "#"
+    ) {
+
+      return;
+
+    }
+
+
+    /* MOVE */
+
+    player.row = newRow;
+    player.col = newCol;
+
+
+    drawMaze();
+
+
+    /* EXIT */
+
+    if (
+      mazeMap[newRow][newCol] === "E"
+    ) {
+
+      winGame();
+
+    }
+
+  }
+
+
+  /* =========================
+     WIN
+  ========================= */
+
+  function winGame() {
+
+    gameWon = true;
+
+    winScreen.style.display = "block";
+
+
+    setTimeout(() => {
+
+      winScreen.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }, 200);
+
+  }
+
+
+  /* =========================
+     DESKTOP KEYBOARD
+  ========================= */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        [
+          "ArrowUp",
+          "ArrowDown",
+          "ArrowLeft",
+          "ArrowRight"
+        ].includes(event.key)
+      ) {
+
+        event.preventDefault();
+
+      }
+
+
+      if (event.key === "ArrowUp") {
+        movePlayer(-1, 0);
+      }
+
+
+      if (event.key === "ArrowDown") {
+        movePlayer(1, 0);
+      }
+
+
+      if (event.key === "ArrowLeft") {
+        movePlayer(0, -1);
+      }
+
+
+      if (event.key === "ArrowRight") {
+        movePlayer(0, 1);
+      }
+
+    }
+  );
+
+
+  /* =========================
+     MOBILE BUTTONS
+  ========================= */
+
+  document
+    .querySelectorAll(".maze-arrow")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const direction =
+            button.dataset.move;
+
+
+          if (direction === "up") {
+            movePlayer(-1, 0);
+          }
+
+          if (direction === "down") {
+            movePlayer(1, 0);
+          }
+
+          if (direction === "left") {
+            movePlayer(0, -1);
+          }
+
+          if (direction === "right") {
+            movePlayer(0, 1);
+          }
+
+        }
+      );
+
+    });
+
+
+  /* =========================
+     INITIALIZE
+  ========================= */
+
+  drawMaze();
+
 </script>
 
+<section class="band" id="thinking">
+  <div class="label">the thing I understand</div>
+  <p class="big">The opportunity isn't just to make the brand <em>look good.</em> It's to make a new possibility feel <em>credible, human and worth believing in.</em></p>
+</section>
+
+<section class="section" id="fit">
+  <div class="label">01 / understand</div>
+  <div>
+    <div class="kicker">what I think you're hiring for</div>
+    <h2>A brand designer who can connect the dots.</h2>
+    <p>Not someone who waits for a brief, makes a nice thing, and hands it over. Someone who can move between the big question and the actual artifact: understand the business, find the story, shape the expression, collaborate with the people around it, and stay close enough to the work to make it real.</p>
+    <p>That's the part of the role that caught my attention. It sits at the intersection of strategy, culture, storytelling and making, which is exactly where I do my best work.</p>
+  </div>
+</section>
+
+<section class="section" id="think">
+  <div class="label">02 / think</div>
+  <div>
+    <div class="kicker">my starting point</div>
+    <h2>I get curious before I get visual.</h2>
+    <p>What's actually happening here? Who are we asking to care? What do they believe already? What is the category saying? Where is the tension? What could only <em>this</em> brand say?</p>
+    <p>Then I want to turn that thinking into a simple idea people can feel, not a strategy document that only makes sense inside the marketing team.</p>
+    <div class="pill-row">
+      <span class="pill">brand strategy</span><span class="pill">positioning</span><span class="pill">storytelling</span>
+      <span class="pill">creative direction</span><span class="pill">campaigns</span><span class="pill">digital experiences</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="make">
+  <div class="label">03 / make</div>
+  <div>
+    <div class="kicker">proof, not promises</div>
+    <h2>I like ideas that leave the building.</h2>
+    <p>My work has moved across brand strategy, identity, websites, campaigns, print and physical experiences. I care about the thinking, but I also care about what happens when the thinking meets an actual deadline, stakeholder, browser, printer or audience.</p>
+    <div class="cards">
+      <div class="card"><div class="num">01</div><h3>brand →</h3><p>Turn a fuzzy idea into a point of view people can recognize and remember.</p></div>
+      <div class="card"><div class="num">02</div><h3>story →</h3><p>Find the humanism that gives the work something to say.</p></div>
+      <div class="card"><div class="num">03</div><h3>thing →</h3><p>Actually make it and learn along the way.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="build">
+  <div class="label">04 / build</div>
+  <div>
+    <div class="kicker">how I work now</div>
+    <h2>Sometimes the designer is also the developer.</h2>
+    <p>I build websites myself, work inside the stack, prototype with new tools and use AI as part of the making process, not as a substitute for taste or thinking.</p>
+    <p>That matters because the distance between an idea and its execution keeps shrinking. I'm fascinated by that. Shortening one part of the workflow doesn't mean skipping out on story, taste and intention.</p>
+    <div class="pill-row"><span class="pill">web</span><span class="pill">prototyping</span><span class="pill">AI</span><span class="pill">systems</span><span class="pill">experimentation</span></div>
+  </div>
+</section>
+
+<section class="section" id="radial">
+  <div class="label">05 / radial</div>
+  <div>
+    <div class="kicker">why I'm applying</div>
+    <p class="quote">The science is moving faster than the <span>story.</span></p>
+    <p style="margin-top:30px">That's what makes this role interesting to me. Radial isn't just another company looking for someone to make a brand prettier. There's a genuinely difficult communication problem here: how do you help people understand a new possibility in care, build trust around something unfamiliar, and make the future feel tangible without oversimplifying the science?</p>
+    <p>I don't have a tidy answer to that yet. That's actually part of the appeal. I want to dig into the product, the people, the category and the culture and figure out what the brand can become from there.</p>
+    <p><strong style="color:#fff">I'd rather do that than tell you I already know the answer.</strong></p>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>let's put<br>our brains together</h2>
+  <p>If you're looking for someone who can think strategically, make boldly, collaborate generously and stay close to the work. Let's talk. </p>
+  <a href="mailto:trystorytelling@gmail.com">say hi →</a>
+</section>
+
+<footer>
+  <div>© 2026 Trystorytelling </div>
+  <div></div>
+  <div>hi, radial.</div>
+</footer>
+</main>
+<script>
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
+</script>
 </body>
 </html>
