@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080808">
 <title>Inside Her Brain — Kaya</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,30 +42,24 @@ body::after {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 100;
   opacity: .12;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
 }
 
 a { color: inherit; text-decoration: none; }
 
-button {
-  font: inherit;
-  color: inherit;
-}
+button { font: inherit; color: inherit; }
 
-.mono {
+.mono, .small {
   font-family: var(--mono);
   text-transform: uppercase;
   letter-spacing: .08em;
 }
 
 .small {
-  font-family: var(--mono);
   font-size: 10px;
   line-height: 1.7;
-  letter-spacing: .1em;
-  text-transform: uppercase;
   color: var(--muted);
 }
 
@@ -77,17 +70,18 @@ button {
   margin: 0 auto;
 }
 
-/* INTRO */
+/* OPENING SCREEN */
 
 #intro {
   position: fixed;
-  z-index: 50;
   inset: 0;
+  z-index: 50;
   background: var(--black);
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  transition: opacity .8s ease, visibility .8s ease;
+  padding: 24px 4vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: opacity .7s ease, visibility .7s ease;
 }
 
 #intro.hidden {
@@ -96,23 +90,26 @@ button {
   pointer-events: none;
 }
 
-.intro-inner {
-  width: min(720px, 100%);
-  text-align: center;
-}
-
-.intro-top {
+.intro-nav, .intro-footer {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50px;
-  text-align: left;
+  gap: 15px;
+}
+
+.intro-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5vw;
+  align-items: center;
+  width: min(1300px, 100%);
+  margin: auto;
 }
 
 .intro-image {
-  width: min(330px, 75vw);
-  aspect-ratio: 1;
-  margin: 0 auto 30px;
   position: relative;
+  width: 100%;
+  max-width: 650px;
+  aspect-ratio: 1;
   overflow: hidden;
 }
 
@@ -120,61 +117,185 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: contrast(1.15) saturate(1.15);
-  animation: pulse 5s ease-in-out infinite;
+  filter: contrast(1.12) saturate(1.2);
+  mix-blend-mode: screen;
+  animation: brainPulse 7s ease-in-out infinite;
 }
 
-.intro-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(transparent 50%, rgba(0,0,0,.2));
-  pointer-events: none;
-}
-
-@keyframes pulse {
+@keyframes brainPulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.045); }
+  50% { transform: scale(1.035); }
 }
 
-.intro-title {
-  font-size: clamp(34px, 7vw, 70px);
-  letter-spacing: -.07em;
-  line-height: .95;
-  margin: 0 0 18px;
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: rgba(213,255,69,.65);
+  box-shadow: 0 0 12px var(--acid);
+  animation: scan 5s linear infinite;
 }
 
-.intro-copy {
-  color: #a6a6a0;
+@keyframes scan {
+  from { top: 0; }
+  to { top: 100%; }
+}
+
+.image-tag {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  background: rgba(0,0,0,.65);
+  padding: 8px;
+}
+
+.intro-copy h1 {
+  font-size: clamp(38px, 5.3vw, 75px);
+  line-height: .98;
+  letter-spacing: -.075em;
+  font-weight: 500;
+  margin: 22px 0;
+}
+
+.intro-copy h1 span { color: var(--acid); }
+
+.intro-description {
+  max-width: 390px;
+  color: #aaa9a2;
   font-size: 14px;
-  line-height: 1.7;
-  max-width: 430px;
-  margin: 0 auto 32px;
+  line-height: 1.8;
+  margin: 25px 0 35px;
 }
 
 .enter-button {
   border: 1px solid var(--acid);
-  background: transparent;
   color: var(--acid);
-  padding: 16px 24px;
+  background: transparent;
+  padding: 17px 22px;
   font-family: var(--mono);
   font-size: 11px;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  letter-spacing: .08em;
   cursor: pointer;
   transition: .25s;
 }
 
 .enter-button:hover {
-  color: var(--black);
   background: var(--acid);
+  color: #080808;
 }
 
-.intro-footer {
-  margin-top: 70px;
+.enter-button span { margin-left: 20px; }
+
+/* SIGNAL CALIBRATION */
+
+#calibration {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: #080808;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 4vw;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+#calibration.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.calibration-top, .calibration-bottom {
   display: flex;
   justify-content: space-between;
+  gap: 15px;
 }
+
+.calibration-content {
+  width: min(650px, 100%);
+  margin: auto;
+  text-align: center;
+}
+
+.calibration-content h2 {
+  font-size: clamp(42px, 7vw, 76px);
+  letter-spacing: -.07em;
+  font-weight: 400;
+  margin: 18px 0;
+}
+
+.calibration-content > p:not(.small) {
+  color: #aaa9a2;
+  font-size: 14px;
+}
+
+.signal-board {
+  position: relative;
+  height: 230px;
+  max-width: 500px;
+  margin: 45px auto 30px;
+  border: 1px solid #292927;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.signal-point {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #555;
+  border-radius: 50%;
+  background: #111;
+  cursor: default;
+  transform: translate(-50%, -50%);
+  transition: .2s;
+}
+
+.signal-point:nth-child(1) { left: 22%; top: 35%; }
+.signal-point:nth-child(2) { left: 70%; top: 25%; }
+.signal-point:nth-child(3) { left: 53%; top: 72%; }
+
+.signal-point.active {
+  cursor: pointer;
+  background: var(--acid);
+  border-color: var(--acid);
+  box-shadow: 0 0 12px var(--acid), 0 0 35px rgba(213,255,69,.5);
+  transform: translate(-50%, -50%) scale(1.35);
+}
+
+.signal-point.found {
+  background: var(--orange);
+  border-color: var(--orange);
+  box-shadow: 0 0 15px rgba(255,105,61,.5);
+}
+
+.calibration-progress {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 2px;
+  background: #292927;
+}
+
+#progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--acid);
+  transition: width .35s ease;
+}
+
+.calibration-hint { margin-top: 25px; }
 
 /* HEADER */
 
@@ -337,9 +458,7 @@ section { border-top: 1px solid var(--line); }
 
 /* MANIFESTO */
 
-.manifesto {
-  padding: 130px 0 150px;
-}
+.manifesto { padding: 130px 0 150px; }
 
 .manifesto-statement {
   max-width: 1020px;
@@ -367,9 +486,7 @@ section { border-top: 1px solid var(--line); }
 
 /* FOUR FORCES */
 
-.forces {
-  padding-bottom: 120px;
-}
+.forces { padding-bottom: 120px; }
 
 .force-intro {
   display: grid;
@@ -429,9 +546,7 @@ section { border-top: 1px solid var(--line); }
 
 /* APPROACH */
 
-.approach {
-  padding: 100px 0 130px;
-}
+.approach { padding: 100px 0 130px; }
 
 .approach-lead {
   max-width: 750px;
@@ -474,11 +589,9 @@ section { border-top: 1px solid var(--line); }
   max-width: 400px;
 }
 
-/* WORK */
+/* WHAT I DO */
 
-.work {
-  padding: 100px 0 130px;
-}
+.work { padding: 100px 0 130px; }
 
 .work-intro {
   max-width: 720px;
@@ -517,9 +630,7 @@ section { border-top: 1px solid var(--line); }
 
 /* ABOUT */
 
-.about {
-  padding: 100px 0 130px;
-}
+.about { padding: 100px 0 130px; }
 
 .about-grid {
   display: grid;
@@ -543,7 +654,7 @@ section { border-top: 1px solid var(--line); }
 }
 
 .about-stamp p {
-  margin: 0;
+  margin: 0 0 8px;
   line-height: 1.7;
 }
 
@@ -612,6 +723,8 @@ section { border-top: 1px solid var(--line); }
   letter-spacing: .08em;
 }
 
+.contact-link:hover { color: white; border-color: white; }
+
 footer {
   border-top: 1px solid var(--line);
   padding: 22px 0;
@@ -623,7 +736,7 @@ footer {
   gap: 20px;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 
 @media (max-width: 760px) {
   .container { width: min(100% - 38px, 600px); }
@@ -631,6 +744,24 @@ footer {
   .nav-links { gap: 14px; }
   .nav-links a { font-size: 9px; }
   .status { display: none; }
+
+  .intro-main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .intro-image {
+    width: min(100%, 390px);
+    margin: auto;
+  }
+
+  .intro-copy h1 {
+    font-size: clamp(38px, 10vw, 60px);
+  }
+
+  .intro-description { margin: 18px 0 24px; }
+
+  .intro-footer span:last-child { display: none; }
 
   .hero {
     min-height: auto;
@@ -677,7 +808,6 @@ footer {
   }
 
   .approach-grid { grid-template-columns: 1fr; }
-
   .approach-card { min-height: 190px; }
 
   .work-item {
@@ -691,7 +821,6 @@ footer {
   }
 
   .about-grid { gap: 45px; }
-
   .about-stamp { max-width: 330px; }
 
   .contact-bottom {
@@ -699,7 +828,7 @@ footer {
     align-items: start;
   }
 
-  .intro-footer { margin-top: 45px; }
+  .footer-inner { flex-direction: column; }
 }
 
 @media (max-width: 420px) {
@@ -707,44 +836,93 @@ footer {
   .nav-links a { font-size: 8px; }
   .logo { font-size: 11px; }
   .hero-bottom { flex-direction: column; }
-  .footer-inner { flex-direction: column; }
+  .calibration-content h2 { font-size: 40px; }
+  .calibration-progress { align-items: flex-start; flex-direction: column; }
+  .progress-track { width: 100%; flex: auto; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ENTRY SCREEN -->
+<!-- OPENING SCREEN -->
 
 <div id="intro">
-  <div class="intro-inner">
-    <div class="intro-top small">
-      <span>INSIDE HER BRAIN</span>
-      <span>PRIVATE ARCHIVE / 001</span>
-    </div>
+  <div class="intro-nav small">
+    <span>INSIDE HER BRAIN</span>
+    <span>PERSONAL ARCHIVE / 001</span>
+  </div>
 
+  <div class="intro-main">
     <div class="intro-image">
       <img src="brain.jpg" alt="Thermal brain scan">
+      <div class="scan-line"></div>
+      <span class="image-tag small">FIG 001 — ACTIVE THINKING</span>
     </div>
 
-    <p class="small acid">UNCLASSIFIED THOUGHTS / PERSONAL ARCHIVE</p>
-    <h1 class="intro-title">A LITTLE MORE<br>THAN MEETS THE EYE.</h1>
+    <div class="intro-copy">
+      <p class="small acid">A CREATIVE MIND AT WORK</p>
+      <h1>THE INTERESTING IDEA<br>IS RARELY THE <span>OBVIOUS ONE.</span></h1>
 
-    <p class="intro-copy">
-      A collection of ideas, instincts, observations and things
-      that probably shouldn't stay inside my head.
-    </p>
+      <p class="intro-description">
+        Brand. Narrative. Strategy. Imagination.
+        A collection of thoughts on what things are —
+        and what they could become.
+      </p>
 
-    <button class="enter-button" onclick="enterArchive()">
-      I'M CURIOUS. LET ME IN →
-    </button>
-
-    <div class="intro-footer small">
-      <span>ACCESS GRANTED: BY CURIOSITY</span>
-      <span>SCROLL AT YOUR OWN RISK</span>
+      <button class="enter-button" onclick="startCalibration()">
+        ENTER THE ARCHIVE <span>↗</span>
+      </button>
     </div>
   </div>
+
+  <div class="intro-footer small">
+    <span>SUBJECT: KAYA</span>
+    <span>STATUS: THINKING IN PROGRESS</span>
+    <span>SCROLLING NOT REQUIRED</span>
+  </div>
 </div>
+
+<!-- SIGNAL CALIBRATION -->
+
+<div id="calibration" aria-live="polite">
+  <div class="calibration-top small">
+    <span>INCOMING CONNECTION</span>
+    <span>SECURE CHANNEL / 001</span>
+  </div>
+
+  <div class="calibration-content">
+    <p class="small acid" id="calibration-label">ESTABLISHING CONNECTION</p>
+    <h2 id="calibration-title">TUNE THE SIGNAL.</h2>
+    <p id="calibration-instruction">
+      Three coordinates. Follow the signal.
+    </p>
+
+    <div class="signal-board" id="signal-board">
+      <button class="signal-point" data-point="0" aria-label="Signal point one"></button>
+      <button class="signal-point" data-point="1" aria-label="Signal point two"></button>
+      <button class="signal-point" data-point="2" aria-label="Signal point three"></button>
+    </div>
+
+    <div class="calibration-progress">
+      <div class="progress-track">
+        <div id="progress-fill"></div>
+      </div>
+      <span class="small" id="progress-text">0 / 3 SIGNALS FOUND</span>
+    </div>
+
+    <p class="small calibration-hint" id="calibration-hint">
+      WAIT FOR A POINT TO LIGHT UP.
+    </p>
+  </div>
+
+  <div class="calibration-bottom small">
+    <span>NO WRONG ANSWERS</span>
+    <span>JUST FOLLOW THE SIGNAL</span>
+  </div>
+</div>
+
+<!-- MAIN WEBSITE -->
 
 <header>
   <div class="container nav">
@@ -852,7 +1030,6 @@ footer {
     </div>
 
     <div class="force-list">
-
       <div class="force">
         <span class="force-index">01</span>
         <h4>Perception</h4>
@@ -892,7 +1069,6 @@ footer {
           to the people it's meant to reach.
         </p>
       </div>
-
     </div>
   </div>
 </section>
@@ -911,7 +1087,6 @@ footer {
     </p>
 
     <div class="approach-grid">
-
       <div class="approach-card">
         <span class="small">01 / LOOK CLOSER</span>
         <h4>Find the real problem.</h4>
@@ -951,7 +1126,6 @@ footer {
           help a company move forward.
         </p>
       </div>
-
     </div>
   </div>
 </section>
@@ -971,7 +1145,6 @@ footer {
     </p>
 
     <div class="work-list">
-
       <div class="work-item">
         <span class="small">01</span>
         <h4>Strategic Architecture</h4>
@@ -1011,7 +1184,6 @@ footer {
           idea into everyday contact with its audience.
         </p>
       </div>
-
     </div>
   </div>
 </section>
@@ -1086,7 +1258,7 @@ footer {
         If there's something taking shape, I'd like to hear about it.
       </p>
 
-      <a class="contact-link" href="mailto:hello@insideherbrain.space">
+      <a class="contact-link" href="mailto:trystorytelling@gmail.com">
         START A CONVERSATION ↗
       </a>
     </div>
@@ -1104,13 +1276,69 @@ footer {
 </footer>
 
 <script>
-function enterArchive() {
-  const intro = document.getElementById('intro');
+const intro = document.getElementById('intro');
+const calibration = document.getElementById('calibration');
+
+const points = [...document.querySelectorAll('.signal-point')];
+const progressFill = document.getElementById('progress-fill');
+const progressText = document.getElementById('progress-text');
+const instruction = document.getElementById('calibration-instruction');
+const label = document.getElementById('calibration-label');
+const title = document.getElementById('calibration-title');
+const hint = document.getElementById('calibration-hint');
+
+let currentPoint = 0;
+let found = 0;
+
+function startCalibration() {
   intro.classList.add('hidden');
-  document.body.style.overflow = 'auto';
+  calibration.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  setTimeout(lightNextPoint, 900);
 }
 
-document.body.style.overflow = 'hidden';
+function lightNextPoint() {
+  if (currentPoint >= points.length) {
+    unlockArchive();
+    return;
+  }
+
+  points[currentPoint].classList.add('active');
+  hint.textContent = 'SIGNAL DETECTED — CLICK THE LIT POINT.';
+}
+
+points.forEach((point, index) => {
+  point.addEventListener('click', () => {
+    if (index !== currentPoint || !point.classList.contains('active')) return;
+
+    point.classList.remove('active');
+    point.classList.add('found');
+
+    found++;
+    currentPoint++;
+
+    progressFill.style.width = `${(found / 3) * 100}%`;
+    progressText.textContent = `${found} / 3 SIGNALS FOUND`;
+
+    if (found < 3) {
+      hint.textContent = 'SIGNAL LOCKED. FIND THE NEXT ONE.';
+      setTimeout(lightNextPoint, 500);
+    } else {
+      label.textContent = 'CONNECTION ESTABLISHED';
+      title.textContent = 'SIGNAL FOUND.';
+      instruction.textContent = 'Opening the archive...';
+      hint.textContent = 'WELCOME INSIDE.';
+      setTimeout(unlockArchive, 1100);
+    }
+  });
+});
+
+function unlockArchive() {
+  calibration.classList.remove('active');
+  document.body.style.overflow = 'auto';
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
 </script>
 
 </body>
