@@ -3,1342 +3,1245 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080808">
-<title>Inside Her Brain — Kaya</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inside her brain ★ welcome to my website</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 :root {
-  --black: #080808;
-  --white: #efeee9;
-  --muted: #777772;
-  --line: #292927;
-  --acid: #d5ff45;
-  --orange: #ff693d;
-  --mono: 'DM Mono', monospace;
-  --sans: 'Space Grotesk', sans-serif;
+  --bg: #080808;
+  --white: #f5f5f0;
+  --blue: #69aaff;
+  --pink: #ff8dc8;
+  --green: #b8ff72;
+  --grey: #888;
 }
 
 * { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px;
-}
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--black);
+  background-color: var(--bg);
+  background-image: radial-gradient(#242424 .7px, transparent .7px);
+  background-size: 7px 7px;
   color: var(--white);
-  font-family: var(--sans);
-  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
 }
 
-body::after {
-  content: "";
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  opacity: .12;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
-}
+a { color: var(--blue); text-decoration: underline; }
+a:visited { color: var(--pink); }
+a:hover { color: var(--green); background: #242424; }
+img { max-width: 100%; }
 
-a { color: inherit; text-decoration: none; }
+::selection { background: var(--pink); color: black; }
 
-button { font: inherit; color: inherit; }
-
-.mono, .small {
-  font-family: var(--mono);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
-
-.small {
-  font-size: 10px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-.acid { color: var(--acid); }
-
-.container {
-  width: min(1180px, calc(100% - 64px));
-  margin: 0 auto;
-}
-
-/* OPENING SCREEN */
-
-#intro {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background: var(--black);
-  padding: 24px 4vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: opacity .7s ease, visibility .7s ease;
-}
-
-#intro.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.intro-nav, .intro-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.intro-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5vw;
-  align-items: center;
-  width: min(1300px, 100%);
-  margin: auto;
-}
-
-.intro-image {
-  position: relative;
-  width: 100%;
-  max-width: 650px;
-  aspect-ratio: 1;
-  overflow: hidden;
-}
-
-.intro-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: contrast(1.12) saturate(1.2);
-  mix-blend-mode: screen;
-  animation: brainPulse 7s ease-in-out infinite;
-}
-
-@keyframes brainPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.035); }
-}
-
-.scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 1px;
-  width: 100%;
-  background: rgba(213,255,69,.65);
-  box-shadow: 0 0 12px var(--acid);
-  animation: scan 5s linear infinite;
-}
-
-@keyframes scan {
-  from { top: 0; }
-  to { top: 100%; }
-}
-
-.image-tag {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: white;
-  background: rgba(0,0,0,.65);
-  padding: 8px;
-}
-
-.intro-copy h1 {
-  font-size: clamp(38px, 5.3vw, 75px);
-  line-height: .98;
-  letter-spacing: -.075em;
-  font-weight: 500;
-  margin: 22px 0;
-}
-
-.intro-copy h1 span { color: var(--acid); }
-
-.intro-description {
-  max-width: 390px;
-  color: #aaa9a2;
-  font-size: 14px;
-  line-height: 1.8;
-  margin: 25px 0 35px;
-}
-
-.enter-button {
-  border: 1px solid var(--acid);
-  color: var(--acid);
-  background: transparent;
-  padding: 17px 22px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .08em;
-  cursor: pointer;
-  transition: .25s;
-}
-
-.enter-button:hover {
-  background: var(--acid);
-  color: #080808;
-}
-
-.enter-button span { margin-left: 20px; }
-
-/* SIGNAL CALIBRATION */
-
-#calibration {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
+.site {
+  width: min(960px, 94%);
+  margin: 24px auto;
   background: #080808;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 24px 4vw;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .6s ease, visibility .6s ease;
+  border: 1px solid #777;
+  box-shadow: 5px 5px 0 #333;
 }
 
-#calibration.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.calibration-top, .calibration-bottom {
+.top-strip {
+  padding: 7px 12px;
+  background: #dedede;
+  color: black;
+  font: 11px "Courier New", monospace;
   display: flex;
   justify-content: space-between;
-  gap: 15px;
+  gap: 10px;
 }
 
-.calibration-content {
-  width: min(650px, 100%);
-  margin: auto;
+.masthead {
+  padding: 27px 25px 18px;
+  border-bottom: 1px dashed #777;
   text-align: center;
 }
 
-.calibration-content h2 {
-  font-size: clamp(42px, 7vw, 76px);
-  letter-spacing: -.07em;
-  font-weight: 400;
-  margin: 18px 0;
+.masthead .tiny {
+  font: 12px "Courier New", monospace;
+  letter-spacing: 2px;
+  color: var(--green);
 }
 
-.calibration-content > p:not(.small) {
-  color: #aaa9a2;
-  font-size: 14px;
+.masthead h1 {
+  margin: 12px 0 0;
+  font: normal clamp(58px, 11vw, 108px)/.8 "VT323", monospace;
+  letter-spacing: -3px;
+  text-shadow: 3px 3px 0 #454545;
 }
 
-.signal-board {
-  position: relative;
-  height: 230px;
-  max-width: 500px;
-  margin: 45px auto 30px;
-  border: 1px solid #292927;
-  background:
-    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 25px 25px;
+.masthead h1 span { color: var(--pink); }
+
+.tagline {
+  margin-top: 16px;
+  font: 12px "Courier New", monospace;
+  color: #ccc;
 }
 
-.signal-point {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border: 1px solid #555;
-  border-radius: 50%;
-  background: #111;
-  cursor: default;
-  transform: translate(-50%, -50%);
-  transition: .2s;
-}
-
-.signal-point:nth-child(1) { left: 22%; top: 35%; }
-.signal-point:nth-child(2) { left: 70%; top: 25%; }
-.signal-point:nth-child(3) { left: 53%; top: 72%; }
-
-.signal-point.active {
-  cursor: pointer;
-  background: var(--acid);
-  border-color: var(--acid);
-  box-shadow: 0 0 12px var(--acid), 0 0 35px rgba(213,255,69,.5);
-  transform: translate(-50%, -50%) scale(1.35);
-}
-
-.signal-point.found {
-  background: var(--orange);
-  border-color: var(--orange);
-  box-shadow: 0 0 15px rgba(255,105,61,.5);
-}
-
-.calibration-progress {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.progress-track {
-  flex: 1;
-  height: 2px;
-  background: #292927;
-}
-
-#progress-fill {
-  width: 0%;
-  height: 100%;
-  background: var(--acid);
-  transition: width .35s ease;
-}
-
-.calibration-hint { margin-top: 25px; }
-
-/* HEADER */
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 15;
-  background: rgba(8,8,8,.88);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
+.star-line {
+  color: var(--pink);
+  letter-spacing: 8px;
+  margin-top: 17px;
 }
 
 .nav {
-  min-height: 64px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #dcdcdc;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
 }
 
-.logo {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: -.04em;
+.nav a {
+  display: block;
+  padding: 11px 13px;
+  color: #000;
+  font: bold 10px "Courier New", monospace;
+  text-decoration: none;
+  border-right: 1px solid #999;
 }
 
-.nav-links {
-  display: flex;
-  gap: 30px;
-}
+.nav a:hover { background: var(--blue); color: white; }
 
-.nav-links a {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  transition: color .2s;
-}
-
-.nav-links a:hover { color: var(--acid); }
-
-.status {
-  color: var(--acid);
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: .08em;
-}
-
-/* HERO */
-
-.hero {
-  min-height: 730px;
-  padding: 90px 0 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+.marquee {
+  padding: 9px 0;
   overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px dashed #666;
+  color: var(--green);
+  font: 17px "VT323", monospace;
 }
 
-.hero-grid {
+.marquee span {
+  display: inline-block;
+  animation: move 30s linear infinite;
+}
+
+@keyframes move {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+.page-grid {
   display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  align-items: center;
-  gap: 40px;
+  grid-template-columns: 190px minmax(0, 1fr);
+  min-height: 500px;
 }
 
-.hero-kicker { margin-bottom: 28px; }
-
-.hero h1 {
-  font-size: clamp(58px, 9vw, 118px);
-  line-height: .86;
-  letter-spacing: -.085em;
-  font-weight: 500;
-  max-width: 850px;
-  margin: 0;
+.sidebar {
+  padding: 20px 14px;
+  border-right: 1px dashed #666;
+  background: #101010;
 }
 
-.hero h1 span {
-  color: var(--acid);
-  display: block;
+.sidebar-box { margin-bottom: 24px; }
+
+.sidebar-title {
+  padding: 5px 7px;
+  margin-bottom: 10px;
+  background: #dcdcdc;
+  color: black;
+  font: bold 11px "Courier New", monospace;
 }
 
-.hero-description {
-  max-width: 470px;
-  color: #aaa9a2;
-  font-size: 16px;
-  line-height: 1.75;
-  margin-top: 34px;
-}
-
-.hero-image {
-  position: relative;
-  width: 100%;
-  max-width: 470px;
-  justify-self: end;
-}
-
-.hero-image img {
-  width: 100%;
-  display: block;
-  mix-blend-mode: screen;
-  opacity: .92;
-  filter: saturate(1.15) contrast(1.1);
-}
-
-.image-label {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  font-size: 9px;
-  color: white;
-  background: rgba(0,0,0,.7);
-  padding: 8px;
-}
-
-.hero-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
-  margin-top: 70px;
-}
-
-.hero-bottom p {
-  margin: 0;
-  max-width: 340px;
-  color: var(--muted);
+.sidebar p {
+  color: #bbb;
   font-size: 12px;
   line-height: 1.6;
 }
 
-/* SECTION BASICS */
-
-section { border-top: 1px solid var(--line); }
-
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 22px 0;
+.sidebar ul {
+  padding-left: 17px;
+  margin: 8px 0;
+  line-height: 2;
 }
 
-.section-heading h2 {
-  font-family: var(--mono);
-  font-size: 10px;
-  font-weight: 400;
-  color: var(--muted);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  margin: 0;
+.sidebar li { color: var(--pink); }
+
+.sidebar .small {
+  font: 11px "Courier New", monospace;
+  color: #999;
 }
 
-.section-number {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--muted);
+.online {
+  color: var(--green);
+  font: 11px "Courier New", monospace;
 }
 
-/* MANIFESTO */
-
-.manifesto { padding: 130px 0 150px; }
-
-.manifesto-statement {
-  max-width: 1020px;
-  font-size: clamp(34px, 6.1vw, 76px);
-  line-height: 1.08;
-  letter-spacing: -.065em;
-  font-weight: 400;
+.counter {
+  border: 1px inset #777;
+  padding: 6px;
+  display: inline-block;
+  background: #000;
+  color: var(--green);
+  font: 17px "VT323", monospace;
+  letter-spacing: 3px;
 }
 
-.manifesto-statement .dim { color: #555550; }
+.content {
+  padding: 25px 27px;
+  min-width: 0;
+}
 
-.manifesto-bottom {
+.section {
+  padding: 28px 0;
+  border-bottom: 1px dashed #666;
+  scroll-margin-top: 15px;
+}
+
+.section:first-child { padding-top: 0; }
+
+.section-title {
+  font: 29px "VT323", monospace;
+  color: var(--pink);
+  font-weight: normal;
+  margin: 0 0 15px;
+}
+
+.section-title .number {
+  color: var(--green);
+  font-size: 19px;
+}
+
+.intro-note {
+  color: #aaa;
+  font: 11px "Courier New", monospace;
+}
+
+/* WELCOME */
+
+.welcome-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  margin-top: 80px;
+  gap: 20px;
+  align-items: center;
 }
 
-.manifesto-bottom p {
-  color: #aaa9a2;
-  line-height: 1.8;
-  font-size: 14px;
-  max-width: 460px;
+.brain-frame {
+  padding: 7px;
+  border: 2px solid white;
+  background: #000;
+  box-shadow: 5px 5px 0 #444;
+}
+
+.brain-frame img {
+  width: 100%;
+  display: block;
+  background: black;
+  object-fit: contain;
+}
+
+.brain-label {
+  padding-top: 8px;
+  color: var(--green);
+  font: 10px "Courier New", monospace;
+  text-align: center;
+}
+
+.welcome-copy h2 {
+  font: normal 32px/.95 "VT323", monospace;
+  margin: 0 0 13px;
+}
+
+.welcome-copy p {
+  color: #ccc;
+  line-height: 1.7;
+}
+
+.role {
+  color: var(--blue);
+  font: 11px "Courier New", monospace;
+  line-height: 1.9;
+  margin: 14px 0;
+}
+
+.small-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #ddd;
+  color: #000 !important;
+  border: 2px outset white;
+  text-decoration: none;
+  font: bold 11px "Courier New", monospace;
+}
+
+.small-button:active { border-style: inset; }
+
+/* TYPEWRITER THOUGHT */
+
+.thought-window {
+  border: 1px solid #777;
+  background: #101010;
+}
+
+.thought-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 10px;
+  background: #ddd;
+  color: #000;
+  font: 10px "Courier New", monospace;
+}
+
+.window-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.window-buttons span {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background: #aaa;
+  border: 1px solid #555;
+}
+
+.thought-body {
+  min-height: 270px;
+  padding: 20px;
+  font: 19px/1.6 "VT323", monospace;
+  color: #ddd;
+}
+
+.thought-body .blue { color: var(--blue); }
+.thought-body .pink { color: var(--pink); }
+.thought-body .green { color: var(--green); }
+
+.thought-line { min-height: 25px; }
+
+.type-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 17px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.thought-controls {
+  padding: 9px 12px;
+  border-top: 1px dashed #666;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font: 10px "Courier New", monospace;
+  color: #888;
+}
+
+.thought-controls button {
+  color: var(--blue);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* PROJECTS */
+
+.project {
+  padding: 16px 12px;
+  margin: 15px 0;
+  border: 1px dotted #888;
+  background: #101010;
+}
+
+.project-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 7px;
+  color: var(--green);
+  font: 10px "Courier New", monospace;
+}
+
+.project h3 {
+  font: normal 25px "VT323", monospace;
+  color: white;
+  margin: 12px 0 7px;
+}
+
+.project p {
+  color: #bbb;
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+.project .tags {
+  margin-top: 12px;
+  color: var(--blue);
+  font: 10px "Courier New", monospace;
+}
+
+/* SERVICES */
+
+.service-intro {
+  color: #bbb;
+  line-height: 1.7;
+  max-width: 620px;
+  margin-bottom: 20px;
+}
+
+.service {
+  padding: 17px 0;
+  border-top: 1px dotted #777;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+}
+
+.service:last-child { border-bottom: 1px dotted #777; }
+
+.service-no {
+  color: var(--green);
+  font: 25px "VT323", monospace;
+}
+
+.service h3 {
+  margin: 0 0 8px;
+  color: var(--pink);
+  font: normal 22px "VT323", monospace;
+}
+
+.service p {
+  margin: 0;
+  color: #bbb;
+  font-size: 12px;
+  line-height: 1.75;
 }
 
 /* FOUR FORCES */
 
-.forces { padding-bottom: 120px; }
-
-.force-intro {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  padding: 65px 0 55px;
-}
-
-.force-intro h3 {
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 400;
-  letter-spacing: -.06em;
-  line-height: 1.05;
-  margin: 0;
-}
-
-.force-intro p {
-  font-size: 14px;
-  line-height: 1.8;
-  color: #aaa9a2;
-  max-width: 450px;
-  margin: 0;
-}
-
-.force-list { border-top: 1px solid var(--line); }
+.force-list { border-top: 1px dotted #666; }
 
 .force {
   display: grid;
-  grid-template-columns: 80px 1fr 1.1fr;
-  gap: 30px;
-  padding: 32px 0;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: 35px 125px 1fr;
+  gap: 10px;
+  padding: 13px 0;
+  border-bottom: 1px dotted #666;
   align-items: start;
 }
 
-.force-index {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--acid);
-  padding-top: 8px;
+.force-number {
+  color: var(--green);
+  font: 17px "VT323", monospace;
 }
 
-.force h4 {
-  font-size: clamp(24px, 3vw, 38px);
-  letter-spacing: -.06em;
-  font-weight: 400;
+.force h3 {
+  color: var(--pink);
+  font: normal 19px "VT323", monospace;
   margin: 0;
 }
 
 .force p {
-  color: #aaa9a2;
-  font-size: 13px;
-  line-height: 1.8;
-  max-width: 470px;
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1.6;
   margin: 0;
-}
-
-/* APPROACH */
-
-.approach { padding: 100px 0 130px; }
-
-.approach-lead {
-  max-width: 750px;
-  font-size: clamp(34px, 5.5vw, 65px);
-  letter-spacing: -.065em;
-  line-height: 1.08;
-  margin: 30px 0 70px;
-}
-
-.approach-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
-}
-
-.approach-card {
-  min-height: 230px;
-  padding: 30px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  transition: background .25s;
-}
-
-.approach-card:hover { background: #11110e; }
-
-.approach-card .small { color: var(--acid); }
-
-.approach-card h4 {
-  font-size: 23px;
-  font-weight: 500;
-  letter-spacing: -.04em;
-  margin: 35px 0 12px;
-}
-
-.approach-card p {
-  font-size: 13px;
-  color: #aaa9a2;
-  line-height: 1.8;
-  max-width: 400px;
-}
-
-/* WHAT I DO */
-
-.work { padding: 100px 0 130px; }
-
-.work-intro {
-  max-width: 720px;
-  font-size: clamp(30px, 4.5vw, 52px);
-  letter-spacing: -.06em;
-  line-height: 1.1;
-  margin: 40px 0 60px;
-}
-
-.work-list { border-top: 1px solid var(--line); }
-
-.work-item {
-  display: grid;
-  grid-template-columns: 70px 1fr 1.1fr;
-  gap: 30px;
-  padding: 28px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.work-item .small { color: var(--acid); }
-
-.work-item h4 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: -.04em;
-}
-
-.work-item p {
-  margin: 0;
-  font-size: 13px;
-  color: #aaa9a2;
-  line-height: 1.8;
-  max-width: 460px;
 }
 
 /* ABOUT */
 
-.about { padding: 100px 0 130px; }
+.about-text {
+  color: #bbb;
+  line-height: 1.8;
+  max-width: 670px;
+}
 
-.about-grid {
+.about-text p { margin: 0 0 15px; }
+.about-text strong { color: white; }
+
+.about-facts {
+  margin-top: 22px;
+  border-top: 1px dotted #666;
+}
+
+.fact {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px dotted #555;
+  font: 10px "Courier New", monospace;
+}
+
+.fact span:first-child { color: var(--green); }
+.fact span:last-child { color: #bbb; text-align: right; }
+
+/* WHO IT'S FOR */
+
+.audience-grid {
   display: grid;
-  grid-template-columns: .8fr 1.2fr;
-  gap: 90px;
-  padding-top: 60px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-.about-stamp {
-  border: 1px solid var(--line);
-  padding: 20px;
-  height: fit-content;
+.audience-box {
+  padding: 16px;
+  border: 1px dotted #777;
+  background: #101010;
 }
 
-.about-stamp .stamp-image {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
-  margin-bottom: 20px;
+.audience-box h3 {
+  margin: 0 0 12px;
+  font: normal 23px "VT323", monospace;
 }
 
-.about-stamp p {
-  margin: 0 0 8px;
+.audience-box.yes h3 { color: var(--green); }
+.audience-box.no h3 { color: var(--pink); }
+
+.audience-box p {
+  color: #bbb;
+  font-size: 12px;
   line-height: 1.7;
 }
 
-.about-copy h3 {
-  font-size: clamp(34px, 4.5vw, 55px);
-  letter-spacing: -.06em;
-  line-height: 1.05;
-  font-weight: 400;
-  margin: 0 0 35px;
-}
-
-.about-copy p {
-  font-size: 14px;
+.audience-box ul {
+  padding-left: 17px;
+  color: #bbb;
+  font-size: 11px;
   line-height: 1.9;
-  color: #aaa9a2;
-  max-width: 610px;
 }
 
-.about-copy .highlight {
-  color: var(--white);
-  font-size: 18px;
-  line-height: 1.6;
-  margin-top: 40px;
+.audience-box li::marker { color: var(--blue); }
+
+/* OPEN TABS */
+
+.post {
+  padding: 15px;
+  border: 1px solid #777;
+  background: #111;
+}
+
+.post-header {
+  margin: -15px -15px 15px;
+  padding: 7px 10px;
+  background: #ddd;
+  color: black;
+  font: 10px "Courier New", monospace;
+}
+
+.post h3 {
+  font: normal 26px "VT323", monospace;
+  margin: 8px 0;
+}
+
+.post p {
+  color: #bbb;
+  font-size: 12px;
+  line-height: 1.7;
 }
 
 /* CONTACT */
 
-.contact {
-  padding: 110px 0 120px;
-  background: #10100e;
+.contact-box {
+  padding: 22px;
+  text-align: center;
+  border: 2px dotted var(--pink);
+  background: #101010;
 }
 
-.contact h2 {
-  font-size: clamp(50px, 9vw, 110px);
-  line-height: .9;
-  letter-spacing: -.08em;
-  font-weight: 400;
-  margin: 30px 0;
+.contact-box h2 {
+  font: normal 38px "VT323", monospace;
+  margin: 0 0 10px;
 }
 
-.contact h2 span { color: var(--acid); }
-
-.contact-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-top: 70px;
-  gap: 30px;
+.contact-box p {
+  color: #aaa;
+  line-height: 1.7;
 }
 
-.contact-bottom p {
-  font-size: 13px;
-  line-height: 1.8;
-  color: #aaa9a2;
-  max-width: 400px;
+.footer {
+  padding: 17px;
+  text-align: center;
+  border-top: 1px solid #777;
+  color: #999;
+  font: 10px "Courier New", monospace;
+  line-height: 2;
 }
 
-.contact-link {
-  display: inline-block;
-  border-bottom: 1px solid var(--acid);
-  color: var(--acid);
-  padding-bottom: 10px;
-  font-family: var(--mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-}
+.footer .pink { color: var(--pink); }
 
-.contact-link:hover { color: white; border-color: white; }
+.blink { animation: blink 1.1s steps(2, start) infinite; }
 
-footer {
-  border-top: 1px solid var(--line);
-  padding: 22px 0;
-}
+@media(max-width: 680px) {
+  .page-grid { grid-template-columns: 1fr; }
 
-.footer-inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-/* MOBILE */
-
-@media (max-width: 760px) {
-  .container { width: min(100% - 38px, 600px); }
-
-  .nav-links { gap: 14px; }
-  .nav-links a { font-size: 9px; }
-  .status { display: none; }
-
-  .intro-main {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px dashed #666;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  .intro-image {
-    width: min(100%, 390px);
-    margin: auto;
-  }
+  .sidebar-box { margin-bottom: 10px; }
+  .welcome-layout { grid-template-columns: 1fr; }
+  .brain-frame { max-width: 420px; margin: auto; }
+  .content { padding: 20px 16px; }
 
-  .intro-copy h1 {
-    font-size: clamp(38px, 10vw, 60px);
-  }
+  .force { grid-template-columns: 25px 1fr; }
+  .force p { grid-column: 2; }
 
-  .intro-description { margin: 18px 0 24px; }
-
-  .intro-footer span:last-child { display: none; }
-
-  .hero {
-    min-height: auto;
-    padding: 70px 0 55px;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-  .hero-image {
-    width: 78%;
-    justify-self: center;
-    margin-top: 10px;
-  }
-
-  .hero h1 { font-size: clamp(58px, 15vw, 90px); }
-
-  .hero-bottom {
-    align-items: start;
-    gap: 20px;
-  }
-
-  .manifesto { padding: 90px 0; }
-
-  .manifesto-bottom,
-  .force-intro,
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-  .manifesto-bottom { margin-top: 45px; }
-
-  .force {
-    grid-template-columns: 35px 1fr;
-    gap: 15px;
-  }
-
-  .force p {
-    grid-column: 2;
-    margin-top: 5px;
-  }
-
-  .approach-grid { grid-template-columns: 1fr; }
-  .approach-card { min-height: 190px; }
-
-  .work-item {
-    grid-template-columns: 35px 1fr;
-    gap: 15px;
-  }
-
-  .work-item p {
-    grid-column: 2;
-    margin-top: 0;
-  }
-
-  .about-grid { gap: 45px; }
-  .about-stamp { max-width: 330px; }
-
-  .contact-bottom {
-    flex-direction: column;
-    align-items: start;
-  }
-
-  .footer-inner { flex-direction: column; }
-}
-
-@media (max-width: 420px) {
-  .nav-links { gap: 10px; }
-  .nav-links a { font-size: 8px; }
-  .logo { font-size: 11px; }
-  .hero-bottom { flex-direction: column; }
-  .calibration-content h2 { font-size: 40px; }
-  .calibration-progress { align-items: flex-start; flex-direction: column; }
-  .progress-track { width: 100%; flex: auto; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .top-strip { font-size: 9px; }
+  .thought-body { min-height: 310px; }
 }
 </style>
 </head>
 
 <body>
+<div class="site">
 
-<!-- OPENING SCREEN -->
-
-<div id="intro">
-  <div class="intro-nav small">
-    <span>INSIDE HER BRAIN</span>
-    <span>PERSONAL ARCHIVE / 001</span>
+  <div class="top-strip">
+    <span>★ INSIDE HER BRAIN ★ PERSONAL HOMEPAGE ★</span>
+    <span>EST. ON THE INTERNET</span>
   </div>
 
-  <div class="intro-main">
-    <div class="intro-image">
-      <img src="brain.jpg" alt="Thermal brain scan">
-      <div class="scan-line"></div>
-      <span class="image-tag small">FIG 001 — ACTIVE THINKING</span>
+  <header class="masthead">
+    <div class="tiny">WELCOME, INTERNET STRANGER.</div>
+    <h1>INSIDE <span>HER</span> BRAIN</h1>
+    <div class="tagline">
+      a collection of ideas, experiments, obsessions & other brain activity
     </div>
+    <div class="star-line">✳ ✳ ✳ ✳ ✳</div>
+  </header>
 
-    <div class="intro-copy">
-      <p class="small acid">A CREATIVE MIND AT WORK</p>
-      <h1>THE INTERESTING IDEA<br>IS RARELY THE <span>OBVIOUS ONE.</span></h1>
+  <nav class="nav">
+    <a href="#home">HOME</a>
+    <a href="#projects">PROJECTS</a>
+    <a href="#services">WHAT I DO</a>
+    <a href="#brain">THE BRAIN</a>
+    <a href="#about">ABOUT ME</a>
+    <a href="#fit">WHO I WORK WITH</a>
+    <a href="#open-tabs">OPEN TABS</a>
+    <a href="#contact">SAY HELLO</a>
+  </nav>
 
-      <p class="intro-description">
-        Brand. Narrative. Strategy. Imagination.
-        A collection of thoughts on what things are —
-        and what they could become.
-      </p>
-
-      <button class="enter-button" onclick="startCalibration()">
-        ENTER THE ARCHIVE <span>↗</span>
-      </button>
-    </div>
+  <div class="marquee">
+    <span>
+      ★ YOU HAVE ENTERED INSIDE HER BRAIN ★ PLEASE EXCUSE THE MESS ★
+      IDEAS ARE CURRENTLY MULTIPLYING ★ BEST VIEWED WITH AN OPEN MIND ★
+    </span>
   </div>
 
-  <div class="intro-footer small">
-    <span>SUBJECT: KAYA</span>
-    <span>STATUS: THINKING IN PROGRESS</span>
-    <span>SCROLLING NOT REQUIRED</span>
+  <div class="page-grid">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">CURRENT STATUS</div>
+        <p class="online">● ONLINE & THINKING</p>
+        <p class="small">Location: In the interwebs</p>
+        <p class="small">Brain activity: HIGH</p>
+        <p class="small">Tabs open: TOO MANY</p>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">SITE MAP</div>
+        <ul>
+          <li><a href="#home">Start here</a></li>
+          <li><a href="#projects">Project files</a></li>
+          <li><a href="#services">What I do</a></li>
+          <li><a href="#brain">How I think</a></li>
+          <li><a href="#about">The human</a></li>
+          <li><a href="#fit">The right people</a></li>
+          <li><a href="#open-tabs">Current obsessions</a></li>
+          <li><a href="#contact">Get in touch</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">A FEW INTERESTS</div>
+        <p>
+          Branding<br>
+          Internet culture<br>
+          Storytelling<br>
+          Strange connections<br>
+          Good ideas<br>
+          World building<br>
+          Things that shouldn't work but do
+        </p>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">VISITOR NO.</div>
+        <div class="counter">000001</div>
+        <p class="small">Thanks for stopping by :)</p>
+      </div>
+
+      <div class="sidebar-box">
+        <div class="sidebar-title">IMPORTANT</div>
+        <p class="small">
+          This website is a work in progress. So is the person behind it.
+        </p>
+        <p class="blink" style="color:#ff8dc8">★ UNDER CONSTRUCTION ★</p>
+      </div>
+
+    </aside>
+
+    <main class="content">
+
+      <!-- 01 WELCOME -->
+
+      <section class="section" id="home">
+        <div class="section-title">
+          <span class="number">01.</span> YOU FOUND ME!
+        </div>
+
+        <div class="welcome-layout">
+          <div class="brain-frame">
+            <img src="brain.jpg" alt="A colourful scan of a brain">
+            <div class="brain-label">
+              FIG. 001 — THE THINKING MACHINE
+            </div>
+          </div>
+
+          <div class="welcome-copy">
+            <h2>OH, HI THERE.<br>WELCOME TO MY BRAIN.</h2>
+
+            <div class="role">
+              BRAND ARCHITECT<br>
+              CREATIVE OPERATIONS BUILDER<br>
+              CULTURAL STORYTELLER
+            </div>
+
+            <p>
+              I'm interested in ideas that make people stop scrolling,
+              look twice and actually care.
+            </p>
+
+            <p>
+              I help people and businesses find their point of difference,
+              shape their story and turn interesting ideas into things
+              people want to be part of.
+            </p>
+
+            <a class="small-button" href="#projects">COME LOOK AROUND →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 TYPING THOUGHT -->
+
+      <section class="section">
+        <div class="section-title">
+          <span class="number">02.</span> A THOUGHT I'VE BEEN HAVING...
+        </div>
+
+        <div class="thought-window">
+          <div class="thought-header">
+            <span>UNTITLED_THOUGHT.TXT</span>
+            <div class="window-buttons">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <div class="thought-body" aria-live="polite">
+            <div id="thoughtLines"></div>
+            <span class="type-cursor" id="typeCursor"></span>
+          </div>
+
+          <div class="thought-controls">
+            <span id="thoughtStatus">THOUGHT PROCESS: IN PROGRESS...</span>
+            <button id="replayThought">[ REPLAY ]</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 PROJECTS -->
+
+      <section class="section" id="projects">
+        <div class="section-title">
+          <span class="number">03.</span> THINGS I'VE HAD MY HANDS IN
+        </div>
+
+        <p class="intro-note">
+          A few projects, places and experiences from the archives.
+          Not everything has a neat little category.
+        </p>
+
+        <article class="project">
+          <div class="project-top">
+            <span>FILE 001 / BRAND STORY</span>
+            <span>BILBAO, SPAIN</span>
+          </div>
+          <h3>A blue wine brand in Bilbao.</h3>
+          <p>
+            Working with a wine brand doing things a little differently.
+            A chance to explore how a product can build a distinctive
+            identity and story in a category with plenty of established
+            conventions.
+          </p>
+          <div class="tags">BRAND / STORYTELLING / SPAIN</div>
+        </article>
+
+        <article class="project">
+          <div class="project-top">
+            <span>FILE 002 / PRODUCT LAUNCH</span>
+            <span>SHENZHEN, CHINA</span>
+          </div>
+          <h3>Moved to China. Helped launch a phone.</h3>
+          <p>
+            I lived in China and worked at Alcatel, helping launch a new
+            phone. A front-row seat to the pace of the mobile industry,
+            the energy of a product launch and what it takes to bring
+            technology to people in a global market.
+          </p>
+          <div class="tags">ALCATEL / TECHNOLOGY / PRODUCT LAUNCH</div>
+        </article>
+
+        <article class="project">
+          <div class="project-top">
+            <span>FILE 003 / AUDIENCE BUILDING</span>
+            <span>LISBON, PORTUGAL</span>
+          </div>
+          <h3>Building an audience from zero.</h3>
+          <p>
+            Helping an early-stage startup in Lisbon build its subscriber
+            list. Turning an emerging idea into an audience of people
+            who wanted to hear more. Because the relationship with an
+            audience starts long before the big launch.
+          </p>
+          <div class="tags">STARTUP / CONTENT / AUDIENCE GROWTH</div>
+        </article>
+
+        <p class="intro-note">
+          MORE FILES WILL BE ADDED WHEN I GET AROUND TO IT.
+        </p>
+      </section>
+
+      <!-- 04 WHAT I DO -->
+
+      <section class="section" id="services">
+        <div class="section-title">
+          <span class="number">04.</span> OKAY, BUT WHAT DO I ACTUALLY DO?
+        </div>
+
+        <p class="service-intro">
+          I work across the space between the big idea and the thing
+          people actually experience. Sometimes that means figuring out
+          what a brand should stand for. Sometimes it means building
+          the systems, stories and creative outputs that bring it to life.
+          Usually, it means a bit of both.
+        </p>
+
+        <div class="service">
+          <div class="service-no">01</div>
+          <div>
+            <h3>Strategic Architecture</h3>
+            <p>
+              Research, positioning, audience insight, brand strategy,
+              differentiation and the frameworks that give a business
+              a clearer direction. Finding the opportunity underneath
+              the brief, then figuring out what to do with it.
+            </p>
+          </div>
+        </div>
+
+        <div class="service">
+          <div class="service-no">02</div>
+          <div>
+            <h3>Narrative Architecture</h3>
+            <p>
+              Brand storytelling, messaging systems, founder narratives,
+              verbal identity and the stories that help people understand
+              why a company exists and why it matters. Giving a brand
+              something meaningful to say — and a way to keep saying it.
+            </p>
+          </div>
+        </div>
+
+        <div class="service">
+          <div class="service-no">03</div>
+          <div>
+            <h3>World-Building & Creative Direction</h3>
+            <p>
+              Creative territories, brand personality, conceptual
+              development and the visual and verbal ideas that create
+              a recognisable world around a business. Making the brand
+              feel like somewhere people want to enter, not just
+              something they scroll past.
+            </p>
+          </div>
+        </div>
+
+        <div class="service">
+          <div class="service-no">04</div>
+          <div>
+            <h3>Real-World Expression</h3>
+            <p>
+              Campaigns, websites, content strategy, editorial systems,
+              pitch decks and digital experiences that bring the bigger
+              idea into everyday contact with its audience. Connecting
+              creative ambition with production, coordination and
+              operational execution.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 HOW I THINK -->
+
+      <section class="section" id="brain">
+        <div class="section-title">
+          <span class="number">05.</span> HOW THIS BRAIN WORKS
+        </div>
+
+        <p class="intro-note">
+          FOUR THINGS THAT TEND TO HAPPEN WHEN I GET AN IDEA.
+        </p>
+
+        <div class="force-list">
+          <div class="force">
+            <div class="force-number">01</div>
+            <h3>PERCEPTION</h3>
+            <p>
+              Seeing what others miss. Spotting patterns, asking better
+              questions and finding the real problem underneath the
+              obvious one.
+            </p>
+          </div>
+
+          <div class="force">
+            <div class="force-number">02</div>
+            <h3>DISCERNMENT</h3>
+            <p>
+              Knowing what makes something interesting. Creative judgment,
+              cultural awareness and an instinct for what feels distinctive
+              rather than generic.
+            </p>
+          </div>
+
+          <div class="force">
+            <div class="force-number">03</div>
+            <h3>IMAGINATION</h3>
+            <p>
+              Connecting unexpected ideas, building narratives and
+              imagining identities that give people something to
+              recognise and belong to.
+            </p>
+          </div>
+
+          <div class="force">
+            <div class="force-number">04</div>
+            <h3>TRANSLATION</h3>
+            <p>
+              Turning abstract ideas into clear direction, strategy,
+              tangible experiences and things that actually get made.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 ABOUT ME -->
+
+      <section class="section" id="about">
+        <div class="section-title">
+          <span class="number">06.</span> WHO IS THIS PERSON?
+        </div>
+
+        <div class="about-text">
+
+          <p>
+            I'm a <strong>creative operations builder and brand architect</strong>
+            working at the intersection of narrative, culture, systems
+            and experiential design.
+          </p>
+
+          <p>
+            My background spans immersive events, interactive web
+            experiences, brand storytelling, community-led marketing
+            and creative direction — with a strong focus on building
+            emotionally resonant brands that people don't just consume,
+            but participate in.
+          </p>
+
+          <p>
+            I've led projects across fashion, experiential nightlife,
+            digital media and startup environments, often owning
+            initiatives end-to-end: from concept development and
+            audience positioning to creative production, cross-functional
+            coordination, launch strategy and operational execution.
+          </p>
+
+          <p>
+            My work has taken me across countries and cultures. I've
+            worked in China managing an APAC technology
+            product launch, collaborated on creative brand projects
+            in Spain and built audiences in Lisbon. That international
+            perspective shapes how I think about people, culture,
+            communication and what makes an idea resonate in different
+            contexts.
+          </p>
+
+          <p>
+            What excites me most is helping brands scale without losing
+            their distinct voice, creating the frameworks, experiences
+            and storytelling systems that make brands feel culturally
+            alive rather than corporate.
+          </p>
+
+          <p>
+            I like working in the space where strategy meets imagination,
+            where a big idea meets the realities of making it happen,
+            and where the details are just as important as the vision.
+          </p>
+
+        </div>
+
+        <div class="about-facts">
+          <div class="fact"><span>EXPERIENCE</span><span>10+ YEARS</span></div>
+          <div class="fact"><span>WORKING ACROSS</span><span>BRAND / CULTURE / CREATIVE OPERATIONS</span></div>
+          <div class="fact"><span>GEOGRAPHY</span><span>INTERNATIONAL / MULTI-CULTURAL</span></div>
+          <div class="fact"><span>APPROACH</span><span>STRATEGIC + HANDS-ON</span></div>
+        </div>
+      </section>
+
+      <!-- 07 WHO I WORK WITH -->
+
+      <section class="section" id="fit">
+        <div class="section-title">
+          <span class="number">07.</span> WHO IS THIS FOR?
+        </div>
+
+        <p class="service-intro">
+          I don't think good work comes from trying to be everything
+          to everyone. I'm interested in working with people who want
+          to make something that has a point of view — and are willing
+          to think a little differently to get there.
+        </p>
+
+        <div class="audience-grid">
+
+          <div class="audience-box yes">
+            <h3>YOU'RE PROBABLY MY PEOPLE IF...</h3>
+            <p>
+              You're building something with ambition, but you don't
+              want it to look, sound or feel like everything else.
+            </p>
+            <ul>
+              <li>You're a founder with an idea that needs shaping.</li>
+              <li>You're a brand ready for its next chapter.</li>
+              <li>You care about culture, not just conversion.</li>
+              <li>You want people to participate, not just consume.</li>
+              <li>You value creative thinking and strategic substance.</li>
+              <li>You need someone who can think big and get things done.</li>
+              <li>You're open to questioning the brief if there's a better opportunity.</li>
+            </ul>
+          </div>
+
+          <div class="audience-box no">
+            <h3>WE MIGHT NOT BE A MATCH IF...</h3>
+            <p>
+              And that's okay. Not every project needs the same kind
+              of thinking.
+            </p>
+            <ul>
+              <li>You want someone to simply execute instructions without questioning them.</li>
+              <li>Different is the goal, even when there's no reason behind it.</li>
+              <li>You want a quick cosmetic fix for a deeper strategic problem.</li>
+              <li>You see storytelling as decoration rather than something that shapes the business.</li>
+              <li>You want to follow the safest possible route every time.</li>
+              <li>You don't want to involve people, challenge assumptions or explore possibilities.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <p class="intro-note" style="margin-top:18px">
+          I'M NOT INTERESTED IN BEING DIFFERENT FOR THE SAKE OF IT.
+          I'M INTERESTED IN FINDING THE DIFFERENCE THAT ACTUALLY MATTERS.
+        </p>
+      </section>
+
+      <!-- 08 OPEN TABS -->
+
+      <section class="section" id="open-tabs">
+        <div class="section-title">
+          <span class="number">08.</span> CURRENTLY OPEN IN MY BRAIN
+        </div>
+
+        <div class="post">
+          <div class="post-header">
+            OPEN_TAB_001.HTML — LAST UPDATED: RECENTLY
+          </div>
+
+          <div style="color:#b8ff72;font:10px 'Courier New',monospace">
+            CULTURE / MUSIC / INTERNET / FOOD
+          </div>
+
+          <h3>Why are matcha and Tinashe having a comeback?</h3>
+
+          <p>
+            A little investigation into cultural cycles, internet taste,
+            rediscovery and why certain things suddenly feel interesting
+            all over again.
+          </p>
+
+          <p>
+            This is where I collect the things I'm thinking about,
+            noticing, questioning and occasionally obsessing over.
+          </p>
+
+          <a href="mailto:trystorytelling@gmail.com?subject=The%20Rabbit%20Hole">
+            READ MORE THOUGHTS →
+          </a>
+        </div>
+
+        <p class="intro-note">
+          THE LONGER STORIES LIVE IN THE RABBIT HOLE. COMING SOON.
+        </p>
+      </section>
+
+      <!-- 09 CONTACT -->
+
+      <section class="section" id="contact">
+        <div class="contact-box">
+          <h2>WELL, THAT WAS A NICE LITTLE INTERNET VISIT.</h2>
+          <p>
+            Have an interesting idea? A strange problem? Something
+            that doesn't fit neatly into a box?
+          </p>
+          <p>I'd love to hear about it.</p>
+          <a class="small-button" href="mailto:trystorytelling@gmail.com">
+            SEND ME AN EMAIL ✉
+          </a>
+        </div>
+      </section>
+
+    </main>
   </div>
+
+  <footer class="footer">
+    <div>YOU MADE IT TO THE BOTTOM. CONGRATULATIONS.</div>
+    <div>INSIDE HER BRAIN © 2026 — MADE WITH CURIOSITY.</div>
+    <div class="pink">★ THANKS FOR VISITING. COME BACK SOON. ★</div>
+  </footer>
+
 </div>
-
-<!-- SIGNAL CALIBRATION -->
-
-<div id="calibration" aria-live="polite">
-  <div class="calibration-top small">
-    <span>INCOMING CONNECTION</span>
-    <span>SECURE CHANNEL / 001</span>
-  </div>
-
-  <div class="calibration-content">
-    <p class="small acid" id="calibration-label">ESTABLISHING CONNECTION</p>
-    <h2 id="calibration-title">TUNE THE SIGNAL.</h2>
-    <p id="calibration-instruction">
-      Three coordinates. Follow the signal.
-    </p>
-
-    <div class="signal-board" id="signal-board">
-      <button class="signal-point" data-point="0" aria-label="Signal point one"></button>
-      <button class="signal-point" data-point="1" aria-label="Signal point two"></button>
-      <button class="signal-point" data-point="2" aria-label="Signal point three"></button>
-    </div>
-
-    <div class="calibration-progress">
-      <div class="progress-track">
-        <div id="progress-fill"></div>
-      </div>
-      <span class="small" id="progress-text">0 / 3 SIGNALS FOUND</span>
-    </div>
-
-    <p class="small calibration-hint" id="calibration-hint">
-      WAIT FOR A POINT TO LIGHT UP.
-    </p>
-  </div>
-
-  <div class="calibration-bottom small">
-    <span>NO WRONG ANSWERS</span>
-    <span>JUST FOLLOW THE SIGNAL</span>
-  </div>
-</div>
-
-<!-- MAIN WEBSITE -->
-
-<header>
-  <div class="container nav">
-    <a href="#top" class="logo">INSIDE HER BRAIN<span class="acid">.</span></a>
-
-    <nav class="nav-links">
-      <a href="#thinking">Thinking</a>
-      <a href="#approach">Approach</a>
-      <a href="#work">What I do</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <span class="status">● OPEN TO THE UNEXPECTED</span>
-  </div>
-</header>
-
-<main id="top">
-
-<!-- HERO -->
-
-<div class="container">
-  <section class="hero" style="border:0;">
-    <div class="hero-grid">
-      <div>
-        <p class="small hero-kicker">FILE 001 / A STUDY IN POSSIBILITY</p>
-
-        <h1>
-          THE<br>
-          INTERESTING<br>
-          IDEA IS RARELY<br>
-          <span>THE OBVIOUS ONE.</span>
-        </h1>
-
-        <p class="hero-description">
-          I'm Kaya — a brand architect, storyteller and creative thinker
-          interested in what makes an idea matter, what it could become,
-          and how to build the world around it.
-        </p>
-      </div>
-
-      <div class="hero-image">
-        <img src="brain.jpg" alt="Abstract thermal brain scan">
-        <span class="image-label mono">FIG 01. / THINKING IN PROGRESS</span>
-      </div>
-    </div>
-
-    <div class="hero-bottom">
-      <p>
-        BRAND / NARRATIVE / CREATIVE STRATEGY / CULTURE / COMPANY-BUILDING
-      </p>
-      <span class="small">SCROLL TO INVESTIGATE ↓</span>
-    </div>
-  </section>
-</div>
-
-<!-- MANIFESTO -->
-
-<section id="thinking">
-  <div class="container">
-    <div class="section-heading">
-      <h2>01 / THE CENTRAL QUESTION</h2>
-      <span class="section-number">OBSERVATION_001</span>
-    </div>
-
-    <div class="manifesto">
-      <p class="manifesto-statement">
-        What if the most interesting thing about your business
-        <span class="dim">is the thing you haven't figured out how to explain yet?</span>
-      </p>
-
-      <div class="manifesto-bottom">
-        <p>
-          Maybe the positioning is too familiar. Maybe the story is
-          underselling the ambition. Maybe there's an entirely different
-          way to think about the business that nobody has explored.
-        </p>
-
-        <p>
-          I'm interested in the space between what a company is,
-          what it means to people, and what it has the potential to become.
-          That's where I like to work.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOUR FORCES -->
-
-<section class="forces">
-  <div class="container">
-    <div class="section-heading">
-      <h2>02 / HOW MY BRAIN WORKS</h2>
-      <span class="section-number">FOUR CONNECTED FORCES</span>
-    </div>
-
-    <div class="force-intro">
-      <h3>I look beneath the surface before I decide what to build on it.</h3>
-      <p>
-        My process isn't a straight line from brief to deliverable.
-        It's a way of looking at things: noticing what others miss,
-        recognising what has potential, imagining what isn't there yet,
-        and giving those ideas a structure that can exist in the world.
-      </p>
-    </div>
-
-    <div class="force-list">
-      <div class="force">
-        <span class="force-index">01</span>
-        <h4>Perception</h4>
-        <p>
-          Seeing what others miss. Finding patterns, asking better questions,
-          making unexpected connections and getting underneath the problem
-          rather than immediately accepting how it's been framed.
-        </p>
-      </div>
-
-      <div class="force">
-        <span class="force-index">02</span>
-        <h4>Discernment</h4>
-        <p>
-          Knowing what makes something interesting. Recognising the difference
-          between what's distinctive and what's simply different, what's
-          culturally relevant and what's just another passing trend.
-        </p>
-      </div>
-
-      <div class="force">
-        <span class="force-index">03</span>
-        <h4>Imagination</h4>
-        <p>
-          Seeing what something could become. Connecting ideas, developing
-          narratives, creating creative territories and imagining worlds
-          that give a business a recognisable point of view.
-        </p>
-      </div>
-
-      <div class="force">
-        <span class="force-index">04</span>
-        <h4>Architecture</h4>
-        <p>
-          Turning possibility into something tangible. Building the strategy,
-          story, frameworks and creative expressions that connect an idea
-          to the people it's meant to reach.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- APPROACH -->
-
-<section id="approach" class="approach">
-  <div class="container">
-    <div class="section-heading">
-      <h2>03 / THE WAY I APPROACH THINGS</h2>
-      <span class="section-number">FROM POSSIBILITY TO REALITY</span>
-    </div>
-
-    <p class="approach-lead">
-      I don't just want to work with the brief. I want to question what the brief could be.
-    </p>
-
-    <div class="approach-grid">
-      <div class="approach-card">
-        <span class="small">01 / LOOK CLOSER</span>
-        <h4>Find the real problem.</h4>
-        <p>
-          Investigate the business, its audience, its category and its
-          cultural context. Look for the gap between what exists and
-          what people could understand, feel or experience.
-        </p>
-      </div>
-
-      <div class="approach-card">
-        <span class="small">02 / FIND THE THREAD</span>
-        <h4>Discover what makes it matter.</h4>
-        <p>
-          Identify the distinctive idea, tension, perspective or opportunity
-          that can give the business a more meaningful and memorable place
-          in people's minds.
-        </p>
-      </div>
-
-      <div class="approach-card">
-        <span class="small">03 / IMAGINE THE WORLD</span>
-        <h4>Build a more interesting direction.</h4>
-        <p>
-          Develop the narrative, positioning, creative territory and
-          personality that make the idea recognisable, compelling
-          and worth paying attention to.
-        </p>
-      </div>
-
-      <div class="approach-card">
-        <span class="small">04 / MAKE IT REAL</span>
-        <h4>Give the idea somewhere to go.</h4>
-        <p>
-          Translate the thinking into strategy, messaging, campaigns,
-          content, digital experiences and the practical tools that
-          help a company move forward.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT I DO -->
-
-<section id="work" class="work">
-  <div class="container">
-    <div class="section-heading">
-      <h2>04 / WHERE THE THINKING GOES</h2>
-      <span class="section-number">AREAS OF PRACTICE</span>
-    </div>
-
-    <p class="work-intro">
-      The work can take different forms. The thread connecting it is
-      making an idea more meaningful, distinctive and real.
-    </p>
-
-    <div class="work-list">
-      <div class="work-item">
-        <span class="small">01</span>
-        <h4>Strategic Architecture</h4>
-        <p>
-          Research, positioning, audience insight, brand strategy,
-          differentiation and the frameworks that give a business
-          a clearer direction.
-        </p>
-      </div>
-
-      <div class="work-item">
-        <span class="small">02</span>
-        <h4>Narrative Architecture</h4>
-        <p>
-          Brand storytelling, messaging systems, founder narratives,
-          verbal identity and the stories that help people understand
-          why a company exists and why it matters.
-        </p>
-      </div>
-
-      <div class="work-item">
-        <span class="small">03</span>
-        <h4>World-Building & Creative Direction</h4>
-        <p>
-          Creative territories, brand personality, conceptual development
-          and the visual and verbal ideas that create a recognisable
-          world around a business.
-        </p>
-      </div>
-
-      <div class="work-item">
-        <span class="small">04</span>
-        <h4>Real-World Expression</h4>
-        <p>
-          Campaigns, websites, content strategy, editorial systems,
-          pitch decks and digital experiences that bring the bigger
-          idea into everyday contact with its audience.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-
-<section class="about">
-  <div class="container">
-    <div class="section-heading">
-      <h2>05 / THE HUMAN BEHIND THE HYPERACTIVE BRAIN</h2>
-      <span class="section-number">SUBJECT: KAYA</span>
-    </div>
-
-    <div class="about-grid">
-      <div class="about-stamp">
-        <img class="stamp-image" src="brain.jpg" alt="Brain scan">
-        <p class="small">SUBJECT PROFILE / CREATIVE THINKER</p>
-        <p class="small">KNOWN SIDE EFFECTS: TOO MANY TABS OPEN</p>
-      </div>
-
-      <div class="about-copy">
-        <h3>Part strategist. Part storyteller. Part professional question-asker.</h3>
-
-        <p>
-          My background spans brand strategy, storytelling, content,
-          campaigns, audience growth and digital execution. I've worked
-          with startups, founder-led businesses and established brands
-          to shape how they communicate and connect with people.
-        </p>
-
-        <p>
-          Over the years, I've moved between research and creative
-          development, big-picture thinking and the details that make
-          an idea work. I enjoy getting close to a business, understanding
-          what makes it tick, and finding the story or opportunity that
-          hasn't been fully expressed yet.
-        </p>
-
-        <p>
-          I'm especially interested in ambitious teams building something
-          with a point of view — people who care about how their work is
-          understood by the world, and who are willing to explore a direction
-          that isn't immediately obvious.
-        </p>
-
-        <p class="highlight">
-          I'm not interested in making unconventional ideas more conventional.
-          I'm interested in discovering the logic, opportunity and potential
-          inside them — and building something extraordinary around it.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-
-<section id="contact" class="contact">
-  <div class="container">
-    <p class="small acid">06 / END OF FILE. BEGINNING OF SOMETHING ELSE.</p>
-
-    <h2>
-      HAVE AN<br>
-      INTERESTING<br>
-      <span>PROBLEM?</span>
-    </h2>
-
-    <div class="contact-bottom">
-      <p>
-        I'm interested in ambitious ideas, unusual perspectives and
-        people building things that deserve a more interesting story.
-        If there's something taking shape, I'd like to hear about it.
-      </p>
-
-      <a class="contact-link" href="mailto:trystorytelling@gmail.com">
-        START A CONVERSATION ↗
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="container footer-inner">
-    <span class="small">INSIDE HER BRAIN © 2026 / KAYA</span>
-    <span class="small">BUILT FROM CURIOSITY, NOT CONVENTION.</span>
-    <a class="small acid" href="#top">BACK TO THE SURFACE ↑</a>
-  </div>
-</footer>
 
 <script>
-const intro = document.getElementById('intro');
-const calibration = document.getElementById('calibration');
+/* THOUGHT STREAM TYPEWRITER */
 
-const points = [...document.querySelectorAll('.signal-point')];
-const progressFill = document.getElementById('progress-fill');
-const progressText = document.getElementById('progress-text');
-const instruction = document.getElementById('calibration-instruction');
-const label = document.getElementById('calibration-label');
-const title = document.getElementById('calibration-title');
-const hint = document.getElementById('calibration-hint');
+const thoughtLines = document.getElementById("thoughtLines");
+const thoughtCursor = document.getElementById("typeCursor");
+const thoughtStatus = document.getElementById("thoughtStatus");
+const replayButton = document.getElementById("replayThought");
 
-let currentPoint = 0;
-let found = 0;
+let thoughtRun = 0;
 
-function startCalibration() {
-  intro.classList.add('hidden');
-  calibration.classList.add('active');
-  document.body.style.overflow = 'hidden';
+const thoughts = [
+  { text: "Attention is cheap.", style: "blue" },
+  { text: "Remarkability is priceless.", style: "" },
+  { text: "But attention is expensive.", style: "pink" },
+  { text: "Especially in an attention economy.", style: "" },
+  { text: "Wait. That's not quite the question.", style: "" },
+  { text: "Why should anyone care?", style: "pink" },
+  { text: "What makes something worth remembering?", style: "" },
+  { text: "How do you build a brand", style: "" },
+  { text: "that seeps into the culture?", style: "green" },
+  { text: "Something people recognise.", style: "" },
+  { text: "Return to. Talk about.", style: "" },
+  { text: "Want to be part of.", style: "blue" },
+  { text: "Interesting. Let's start there.", style: "pink" }
+];
 
-  setTimeout(lightNextPoint, 900);
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function lightNextPoint() {
-  if (currentPoint >= points.length) {
-    unlockArchive();
-    return;
+async function typeText(element, text, speed, run) {
+  for (let i = 0; i < text.length; i++) {
+    if (run !== thoughtRun) return;
+    element.textContent += text[i];
+    await sleep(speed);
+  }
+}
+
+async function eraseText(element, speed, run) {
+  while (element.textContent.length > 0) {
+    if (run !== thoughtRun) return;
+    element.textContent = element.textContent.slice(0, -1);
+    await sleep(speed);
+  }
+}
+
+async function runThought() {
+  const run = ++thoughtRun;
+  thoughtLines.innerHTML = "";
+  thoughtCursor.style.display = "inline-block";
+  thoughtStatus.textContent = "THOUGHT PROCESS: IN PROGRESS...";
+
+  await sleep(600);
+
+  const first = document.createElement("div");
+  first.className = "thought-line blue";
+  thoughtLines.appendChild(first);
+
+  await typeText(first, thoughts[0].text, 55, run);
+  await sleep(450);
+
+  const second = document.createElement("div");
+  second.className = "thought-line";
+  thoughtLines.appendChild(second);
+
+  await typeText(second, thoughts[1].text, 55, run);
+  await sleep(1000);
+
+  if (run !== thoughtRun) return;
+
+  await eraseText(second, 22, run);
+  await typeText(second, thoughts[2].text, 45, run);
+  second.className = "thought-line pink";
+
+  const third = document.createElement("div");
+  third.className = "thought-line";
+  thoughtLines.appendChild(third);
+  await typeText(third, thoughts[3].text, 40, run);
+
+  await sleep(900);
+  if (run !== thoughtRun) return;
+
+  await eraseText(first, 14, run);
+  await eraseText(second, 14, run);
+  await eraseText(third, 14, run);
+
+  await sleep(300);
+
+  const rest = thoughts.slice(4);
+  for (const item of rest) {
+    if (run !== thoughtRun) return;
+
+    const line = document.createElement("div");
+    line.className = "thought-line " + item.style;
+    thoughtLines.appendChild(line);
+
+    await typeText(line, item.text, 42, run);
+    await sleep(280);
   }
 
-  points[currentPoint].classList.add('active');
-  hint.textContent = 'SIGNAL DETECTED — CLICK THE LIT POINT.';
+  if (run === thoughtRun) {
+    thoughtCursor.style.display = "none";
+    thoughtStatus.textContent = "THOUGHT PROCESS: COMPLETE. MORE THOUGHTS INCOMING...";
+  }
 }
 
-points.forEach((point, index) => {
-  point.addEventListener('click', () => {
-    if (index !== currentPoint || !point.classList.contains('active')) return;
-
-    point.classList.remove('active');
-    point.classList.add('found');
-
-    found++;
-    currentPoint++;
-
-    progressFill.style.width = `${(found / 3) * 100}%`;
-    progressText.textContent = `${found} / 3 SIGNALS FOUND`;
-
-    if (found < 3) {
-      hint.textContent = 'SIGNAL LOCKED. FIND THE NEXT ONE.';
-      setTimeout(lightNextPoint, 500);
-    } else {
-      label.textContent = 'CONNECTION ESTABLISHED';
-      title.textContent = 'SIGNAL FOUND.';
-      instruction.textContent = 'Opening the archive...';
-      hint.textContent = 'WELCOME INSIDE.';
-      setTimeout(unlockArchive, 1100);
-    }
-  });
-});
-
-function unlockArchive() {
-  calibration.classList.remove('active');
-  document.body.style.overflow = 'auto';
-  window.scrollTo({ top: 0, behavior: 'instant' });
-}
+replayButton.addEventListener("click", runThought);
+runThought();
 </script>
 
 </body>
