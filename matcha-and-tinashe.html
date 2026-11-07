@@ -4,387 +4,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Rabbit Hole — Inside Her Brain</title>
+<title>Why Are Matcha and Tinashe Having a Comeback? — The Rabbit Hole</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:wght@400;700&display=swap');
-
-:root {
-  --black: #080808;
-  --white: #ededed;
-  --blue: #6c8cff;
-  --pink: #ff72b6;
-  --green: #b9ff8a;
-  --grey: #888;
-  --line: #444;
-}
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background-color: var(--black);
-  background-image: radial-gradient(#292929 0.7px, transparent 0.7px);
+  background: #080808;
+  background-image: radial-gradient(#292929 .7px, transparent .7px);
   background-size: 5px 5px;
-  color: var(--white);
+  color: #ededed;
   font-family: 'Courier Prime', monospace;
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.8;
 }
 
-a { color: var(--blue); }
-a:hover { color: var(--pink); }
+a { color: #6c8cff; }
+a:hover { color: #ff72b6; }
 
-.site {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 24px;
+.page {
+  max-width: 850px;
+  margin: auto;
+  padding: 25px;
 }
 
 .topline {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
-  border-bottom: 1px dotted var(--grey);
+  gap: 10px;
+  border-bottom: 1px dotted #777;
   padding-bottom: 10px;
-  color: var(--grey);
-  font-size: 11px;
-  text-transform: uppercase;
+  color: #888;
+  font-size: 10px;
   letter-spacing: 1px;
-}
-
-.masthead {
-  text-align: center;
-  padding: 35px 10px 28px;
-  border-bottom: 3px double var(--white);
-}
-
-.eyebrow {
-  color: var(--green);
-  font-size: 11px;
-  letter-spacing: 3px;
   text-transform: uppercase;
+}
+
+.back {
+  display: inline-block;
+  margin: 25px 0;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.article-meta {
+  color: #b9ff8a;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 h1 {
   font-family: 'VT323', monospace;
-  font-size: clamp(64px, 12vw, 112px);
+  font-size: clamp(48px, 9vw, 85px);
+  line-height: .9;
   font-weight: 400;
-  line-height: .85;
-  margin: 20px 0 12px;
-  letter-spacing: -2px;
+  margin: 22px 0;
 }
 
-.subtitle {
-  max-width: 580px;
-  margin: 15px auto 0;
+.deck {
   color: #bbb;
-  font-size: 13px;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 700px;
 }
 
-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 25px;
-  padding: 15px 0;
-  border-bottom: 1px dotted var(--grey);
-  text-transform: uppercase;
-  font-size: 11px;
-}
-
-nav a { text-decoration: none; }
-
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 9px 0;
-  margin: 15px 0 25px;
-  border-top: 1px dotted var(--grey);
-  border-bottom: 1px dotted var(--grey);
-  color: var(--pink);
-  font-family: 'VT323', monospace;
-  font-size: 22px;
-}
-
-.marquee span {
-  display: inline-block;
-  animation: scroll 25s linear infinite;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.intro {
-  max-width: 720px;
-  margin: 35px auto 55px;
-  text-align: center;
-}
-
-.intro .label {
-  color: var(--pink);
-  font-size: 11px;
-  letter-spacing: 2px;
-}
-
-.intro p {
-  font-size: 16px;
-  line-height: 1.8;
-}
-
-.intro .aside {
-  color: var(--grey);
-  font-size: 12px;
-}
-
-.section-heading {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 35px 0 20px;
-  color: var(--green);
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.section-heading:after {
-  content: "";
-  flex: 1;
-  border-top: 1px dotted var(--grey);
-}
-
-.featured {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(250px, .85fr);
-  border: 1px dotted var(--white);
-  padding: 12px;
-  gap: 22px;
-  background: #101010;
-}
-
-.feature-image {
-  min-height: 280px;
-  background:
-    linear-gradient(135deg, rgba(0,0,0,.1), rgba(0,0,0,.5)),
-    repeating-linear-gradient(45deg, #202020, #202020 8px, #292929 8px, #292929 16px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 25px;
-  color: var(--green);
-  font-family: 'VT323', monospace;
-  font-size: 35px;
-  line-height: 1;
+.hero {
+  margin: 35px 0;
+  min-height: 320px;
   border: 1px solid #555;
-}
-
-.feature-copy {
-  padding: 12px 10px;
-}
-
-.meta {
-  color: var(--grey);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.feature-copy h2 {
-  font-family: 'VT323', monospace;
-  font-size: 43px;
-  line-height: .95;
-  font-weight: 400;
-  margin: 15px 0;
-}
-
-.feature-copy p { color: #ccc; }
-
-.read-link {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 7px 10px;
-  border: 1px solid var(--blue);
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 11px;
-}
-
-.read-link:hover {
-  background: var(--blue);
-  color: var(--black);
-}
-
-.archive {
-  margin-top: 50px;
-  border-top: 1px solid var(--line);
-}
-
-.archive-row {
-  display: grid;
-  grid-template-columns: 100px 1fr 100px;
-  gap: 15px;
+  background:
+    linear-gradient(135deg, #171717, #303030);
+  display: flex;
   align-items: center;
-  padding: 15px 5px;
-  border-bottom: 1px dotted var(--line);
-  font-size: 12px;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  color: #ff72b6;
+  font-family: 'VT323', monospace;
+  font-size: clamp(40px, 8vw, 75px);
+  line-height: .9;
 }
 
-.archive-row .number { color: var(--pink); }
-.archive-row .date { color: var(--grey); text-align: right; }
-.archive-row a { text-decoration: none; }
-
-.coming-soon {
-  color: var(--grey);
-  font-style: italic;
+.caption {
+  color: #777;
+  font-size: 10px;
+  margin-top: -25px;
+  margin-bottom: 40px;
 }
 
-.note {
-  margin: 45px 0;
-  padding: 18px;
-  border: 1px dashed var(--pink);
+.article-body {
+  max-width: 680px;
+  margin: auto;
+}
+
+.article-body p { margin: 0 0 24px; }
+
+.article-body h2 {
+  font-family: 'VT323', monospace;
+  font-size: 38px;
+  font-weight: 400;
+  color: #b9ff8a;
+  line-height: 1;
+  margin: 55px 0 20px;
+}
+
+.article-body blockquote {
+  border-left: 3px solid #ff72b6;
+  margin: 35px 0;
+  padding: 5px 0 5px 20px;
   color: #ccc;
+  font-size: 19px;
+}
+
+.article-body .placeholder {
+  border: 1px dashed #666;
+  padding: 20px;
+  margin: 30px 0;
+  color: #999;
   font-size: 12px;
 }
 
-.note strong { color: var(--pink); }
+.end-note {
+  border-top: 1px dotted #777;
+  border-bottom: 1px dotted #777;
+  padding: 20px 0;
+  margin-top: 55px;
+  color: #aaa;
+  font-size: 12px;
+}
 
 footer {
-  margin-top: 55px;
+  margin-top: 50px;
   padding: 20px 0;
-  border-top: 3px double var(--white);
+  border-top: 3px double #ededed;
+  color: #888;
+  font-size: 10px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  color: var(--grey);
-  font-size: 10px;
 }
 
-@media (max-width: 700px) {
-  .site { padding: 15px; }
-  .featured { grid-template-columns: 1fr; }
-  .feature-image { min-height: 190px; }
-  .archive-row {
-    grid-template-columns: 55px 1fr;
-  }
-  .archive-row .date { display: none; }
-  .topline { font-size: 9px; }
+@media(max-width:600px) {
+  .page { padding: 15px; }
+  .hero { min-height: 220px; }
 }
 </style>
 </head>
 
 <body>
-<div class="site">
+<div class="page">
 
   <div class="topline">
-    <span>INSIDE HER BRAIN / DIGITAL ARCHIVE</span>
-    <span>FILE: RH-001 / OPEN ACCESS</span>
+    <span>INSIDE HER BRAIN / THE RABBIT HOLE</span>
+    <span>FILE RH-001</span>
   </div>
 
-  <header class="masthead">
-    <div class="eyebrow">A collection of thoughts that got out of hand</div>
-    <h1>THE RABBIT HOLE</h1>
-    <div class="subtitle">
-      One thought leads to another. Then another.
-      Occasionally, something interesting happens.
+  <a class="back" href="rabbit-hole.html">← BACK TO THE RABBIT HOLE</a>
+
+  <header>
+    <div class="article-meta">
+      CULTURE / INTERNET / TASTE & TRENDS / RH-001
     </div>
+
+    <h1>Why are matcha and Tinashe having a comeback?</h1>
+
+    <p class="deck">
+      One is a centuries-old green tea. The other is a pop artist.
+      So why do they both feel like they're having a moment again?
+      And what can their cultural trajectories tell us about the
+      way things become desirable?
+    </p>
   </header>
 
-  <nav>
-    <a href="index.html">← Back to the brain</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#work">Selected work</a>
-    <a href="mailto:trystorytelling@gmail.com">Get in touch</a>
-  </nav>
-
-  <div class="marquee">
-    <span>
-      ✳ CULTURE / CURIOSITY / INTERNET ODDITIES / BRAND THINKING /
-      UNFINISHED THOUGHTS / UNEXPECTED CONNECTIONS / CULTURE /
-      CURIOSITY / INTERNET ODDITIES / BRAND THINKING /
-    </span>
+  <div class="hero">
+    MATCHA<br>×<br>TINASHE
   </div>
 
-  <section class="intro">
-    <div class="label">WELCOME TO THE RABBIT HOLE</div>
+  <div class="caption">
+    FIG. 001 — TWO VERY DIFFERENT THINGS. ONE VERY INTERESTING QUESTION.
+  </div>
+
+  <main class="article-body">
+
     <p>
-      This is where I follow a thought a little further than is probably
-      necessary.
+      At some point, the internet decided that matcha was a personality.
+      Then, somewhere in the background, Tinashe started getting
+      talked about again. Suddenly, two things that had been around
+      for a while seemed to be occupying a new kind of cultural space.
     </p>
+
     <p>
-      A cultural observation becomes a question. A question becomes a
-      theory. A theory sends me somewhere completely unexpected.
-      These are explorations of the things people notice, the things
-      they overlook, and the strange connections hiding in plain sight.
+      Which got me thinking: what actually makes something come back?
+      Is it nostalgia? Timing? A new audience discovering something
+      for the first time? Or does culture simply need a little distance
+      before it can recognise what it had in front of it all along?
     </p>
-    <div class="aside">
-      No particular destination. Just follow the thread.
+
+    <blockquote>
+      Maybe a comeback isn't always about becoming relevant again.
+      Maybe it's about being seen differently.
+    </blockquote>
+
+    <h2>01 / The comeback question</h2>
+
+    <p>
+      [Develop the idea here. What does a comeback mean in the age
+      of algorithms, short-form content, nostalgia cycles and
+      constantly refreshed cultural attention?]
+    </p>
+
+    <h2>02 / The matcha phenomenon</h2>
+
+    <p>
+      [Explore matcha's cultural journey: from a drink with a long
+      history to a highly recognisable lifestyle and visual signifier.
+      Consider taste, aesthetics, wellness culture, ritual and
+      social media.]
+    </p>
+
+    <h2>03 / The Tinashe phenomenon</h2>
+
+    <p>
+      [Explore Tinashe's music, creative identity, audience,
+      independent career and the ways online discovery can
+      change how an artist is received.]
+    </p>
+
+    <h2>04 / What do they have in common?</h2>
+
+    <p>
+      [This is where the two threads meet. Look for the deeper
+      cultural pattern rather than forcing the comparison:
+      rediscovery, timing, identity, audience participation,
+      recognisability or the difference between being visible
+      and being valued.]
+    </p>
+
+    <h2>05 / The bigger question</h2>
+
+    <p>
+      [Bring the exploration back to brands and culture. What can
+      businesses learn from the way people adopt, reinterpret,
+      rediscover and make things part of their identity?]
+    </p>
+
+    <div class="placeholder">
+      END OF CURRENT DRAFT / MORE THOUGHTS MAY BE ADDED HERE.
     </div>
-  </section>
 
-  <div class="section-heading">01 / CURRENTLY OPEN</div>
-
-  <article class="featured">
-    <div class="feature-image">
-      MATCHA<br>MEETS<br>TINASHE
+    <div class="end-note">
+      <strong>END OF FILE RH-001.</strong><br>
+      If this sent you down a different rabbit hole, excellent.
+      That's usually how the interesting ones begin.
+      <br><br>
+      <a href="rabbit-hole.html">← Explore more of The Rabbit Hole</a>
+      &nbsp; / &nbsp;
+      <a href="index.html">Return to Inside Her Brain</a>
     </div>
 
-    <div class="feature-copy">
-      <div class="meta">RH-001 &nbsp; / &nbsp; CULTURE REPORT &nbsp; / &nbsp; FIRST DESCENT</div>
-      <h2>Why are matcha and Tinashe having a comeback?</h2>
-      <p>
-        Two seemingly unrelated cultural phenomena. One green drink.
-        One pop star. Both having a moment — but what does that say
-        about taste, nostalgia, the internet, and the way culture moves?
-      </p>
-      <p>
-        A little investigation into the things that become cool again,
-        why they do, and who gets to decide.
-      </p>
-      <a class="read-link" href="matcha-and-tinashe.html">
-        Enter the rabbit hole →
-      </a>
-    </div>
-  </article>
-
-  <div class="section-heading">02 / THE ARCHIVE</div>
-
-  <div class="archive">
-    <div class="archive-row">
-      <span class="number">RH-001</span>
-      <a href="matcha-and-tinashe.html">
-        Why are matcha and Tinashe having a comeback?
-      </a>
-      <span class="date">IN PROGRESS</span>
-    </div>
-
-    <div class="archive-row">
-      <span class="number">RH-002</span>
-      <span class="coming-soon">A thought waiting to happen...</span>
-      <span class="date">COMING SOON</span>
-    </div>
-
-    <div class="archive-row">
-      <span class="number">RH-003</span>
-      <span class="coming-soon">Another loose thread...</span>
-      <span class="date">COMING SOON</span>
-    </div>
-  </div>
-
-  <div class="note">
-    <strong>RESEARCH NOTE:</strong><br>
-    These aren't definitive answers or neatly packaged lessons.
-    They're investigations. Some thoughts will change halfway through.
-    Some will lead nowhere. That's part of the point.
-  </div>
+  </main>
 
   <footer>
     <span>INSIDE HER BRAIN © 2026</span>
-    <span>BUILT FROM CURIOSITY & TOO MANY OPEN TABS</span>
-    <a href="index.html">RETURN TO THE SURFACE ↑</a>
+    <span>END TRANSMISSION.</span>
   </footer>
 
 </div>
