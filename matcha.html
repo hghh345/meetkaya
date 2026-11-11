@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Every Recession Needs a Small Treat Superstar ★ Inside Her Brain</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --bg: #080808;
+  --white: #f5f5f0;
+  --blue: #69aaff;
+  --pink: #ff8dc8;
+  --green: #b8ff72;
+  --grey: #999;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image: radial-gradient(#242424 .7px, transparent .7px);
+  background-size: 7px 7px;
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+a:visited { color: var(--pink); }
+a:hover { color: var(--green); }
+
+.site {
+  width: min(850px, 94%);
+  margin: 24px auto;
+  background: #080808;
+  border: 1px solid #777;
+  box-shadow: 5px 5px 0 #333;
+}
+
+/* HEADER */
+
+.top-strip {
+  padding: 7px 12px;
+  background: #dedede;
+  color: black;
+  font: 11px "Courier New", monospace;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.masthead {
+  padding: 22px 20px;
+  text-align: center;
+  border-bottom: 1px dashed #777;
+}
+
+.masthead a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.masthead h1 {
+  margin: 0;
+  font: normal clamp(45px, 9vw, 75px)/.9 "VT323", monospace;
+  letter-spacing: -2px;
+  text-shadow: 3px 3px 0 #454545;
+}
+
+.masthead h1 span { color: var(--pink); }
+
+.masthead p {
+  color: var(--green);
+  font: 10px "Courier New", monospace;
+  letter-spacing: 2px;
+  margin: 12px 0 0;
+}
+
+/* NAVIGATION */
+
+.nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #dcdcdc;
+  border-bottom: 2px solid white;
+}
+
+.nav a {
+  display: block;
+  padding: 10px 15px;
+  color: black;
+  font: bold 10px "Courier New", monospace;
+  text-decoration: none;
+  border-right: 1px solid #999;
+}
+
+.nav a:hover {
+  background: var(--blue);
+  color: white;
+}
+
+/* ARTICLE */
+
+.article {
+  padding: 35px 55px 45px;
+}
+
+.back-link {
+  margin-bottom: 38px;
+  font: 11px "Courier New", monospace;
+}
+
+.category {
+  color: var(--green);
+  font: 11px "Courier New", monospace;
+  letter-spacing: 1px;
+  margin-bottom: 13px;
+}
+
+.article h2 {
+  font: normal clamp(43px, 7vw, 66px)/.95 "VT323", monospace;
+  margin: 0 0 18px;
+  color: white;
+}
+
+.subtitle {
+  color: #bbb;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 22px;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 12px 0;
+  margin-bottom: 35px;
+  border-top: 1px dotted #666;
+  border-bottom: 1px dotted #666;
+  color: #999;
+  font: 10px "Courier New", monospace;
+}
+
+/* ARTICLE TEXT */
+
+.article-body {
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.article-body p {
+  color: #ccc;
+  margin: 0 0 23px;
+  line-height: 1.9;
+}
+
+.article-body strong {
+  color: white;
+}
+
+.article-body em {
+  color: #ddd;
+}
+
+.article-body .closing {
+  color: var(--green);
+  font-style: italic;
+}
+
+/* END OF ARTICLE */
+
+.article-end {
+  text-align: center;
+  padding: 40px 0 15px;
+  color: var(--pink);
+  font: 18px "VT323", monospace;
+  letter-spacing: 4px;
+}
+
+/* AUTHOR NOTE */
+
+.author-note {
+  margin-top: 35px;
+  padding: 18px;
+  border: 1px dotted #777;
+  background: #101010;
+}
+
+.author-note h3 {
+  color: var(--pink);
+  font: normal 23px "VT323", monospace;
+  margin: 0 0 8px;
+}
+
+.author-note p {
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 17px;
+  text-align: center;
+  border-top: 1px solid #777;
+  color: #999;
+  font: 10px "Courier New", monospace;
+  line-height: 2;
+}
+
+.footer .pink { color: var(--pink); }
+
+/* MOBILE */
+
+@media(max-width: 680px) {
+  .site {
+    width: 100%;
+    margin: 0;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+  }
+
+  .top-strip { font-size: 9px; }
+
+  .masthead { padding: 20px 12px; }
+
+  .nav a {
+    padding: 10px;
+    font-size: 9px;
+  }
+
+  .article {
+    padding: 27px 20px 35px;
+  }
+
+  .back-link {
+    margin-bottom: 30px;
+  }
+
+  .article h2 {
+    font-size: 49px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .article-body p {
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  .article-meta {
+    gap: 10px;
+    font-size: 9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="site">
+
+  <div class="top-strip">
+    <span>★ INSIDE HER BRAIN ★ THE RABBIT HOLE</span>
+    <span>PERSONAL INTERNET ARCHIVE</span>
+  </div>
+
+  <header class="masthead">
+    <a href="index.html">
+      <h1>INSIDE <span>HER</span> BRAIN</h1>
+    </a>
+    <p>IDEAS, CULTURE, CURIOSITY & OTHER BRAIN ACTIVITY</p>
+  </header>
+
+  <nav class="nav">
+    <a href="index.html">HOME</a>
+    <a href="rabbit-hole.html">THE RABBIT HOLE</a>
+    <a href="index.html#about">ABOUT</a>
+    <a href="index.html#contact">SAY HELLO</a>
+  </nav>
+
+  <main class="article">
+
+    <div class="back-link">
+      <a href="rabbit-hole.html">← BACK TO THE RABBIT HOLE</a>
+    </div>
+
+    <div class="category">
+      CULTURE / CONSUMER BEHAVIOUR / LITTLE TREATS
+    </div>
+
+    <h2>Every Recession Needs a Small Treat Superstar</h2>
+
+    <p class="subtitle">
+      First, it was fro-yo. Now it's matcha. Is every economic
+      downturn accompanied by a collectively agreed-upon little treat?
+    </p>
+
+    <div class="article-meta">
+      <span>BY KAYA</span>
+      <span>11 NOVEMBER 2026</span>
+      <span>5 MIN READ</span>
+    </div>
+
+    <div class="article-body">
+
+      <p>
+        The worldwide matcha industry is projected to reach $7.43
+        billion by 2030. Scroll through Instagram or TikTok and you'll
+        find no shortage of pastel-green drinks being photographed,
+        reviewed, ranked, and enthusiastically consumed. There are
+        matcha maps, matcha rankings, matcha pilgrimages. People are
+        opening matcha cafes, developing matcha menus, and building
+        entire identities around a finely whisked bowl of powdered
+        green tea.
+      </p>
+
+      <p>
+        I couldn't help but wonder: <strong>Is matcha the new fro-yo?</strong>
+      </p>
+
+      <p>
+        I've been thinking about how, every decade or so, we seem to
+        collectively appoint one small treat to get us through the
+        economic circumstances of the time.
+      </p>
+
+      <p>
+        During the last recession, it was frozen yogurt. Suddenly,
+        fro-yo shops were everywhere. We had self-serve machines,
+        endless toppings, colorful interiors, and the freedom to
+        construct a dessert that was somehow both a personal expression
+        and a $7 purchase. It was a little luxury that felt accessible.
+        You weren't buying a new wardrobe or booking a vacation. You
+        were buying a cup of frozen yogurt with an unreasonable number
+        of toppings.
+      </p>
+
+      <p>
+        And now, perhaps, it's matcha.
+      </p>
+
+      <p>
+        There's something particularly interesting about the economics
+        of a small treat. When larger purchases become harder to justify,
+        smaller pleasures can become more appealing. The apartment is
+        still expensive. The flight is still out of reach. The general
+        state of the world remains questionable. But a €5 matcha?
+        That's manageable.
+      </p>
+
+      <p>
+        It's the affordable luxury. A little ritual. Something to
+        look forward to.
+      </p>
+
+      <p>
+        But I think there's another part of this phenomenon worth
+        examining: we don't simply enjoy these things. We take them
+        all the way.
+      </p>
+
+      <p>
+        A small treat becomes an industry. An industry becomes an
+        aesthetic. An aesthetic becomes a business opportunity.
+        Suddenly, everyone wants a piece of it.
+      </p>
+
+      <p>
+        People aren't just drinking matcha; they're opening matcha
+        cafes, importing ceremonial-grade powders, designing minimalist
+        green interiors, and building businesses around the idea that
+        we might all want to drink this particular beverage every
+        morning for the foreseeable future.
+      </p>
+
+      <p>
+        Some of these businesses will inevitably close. Some will
+        never make it past the trend cycle. Does that mean they
+        shouldn't have existed in the first place?
+      </p>
+
+      <p>
+        I don't think so.
+      </p>
+
+      <p>
+        Not every business needs to become a permanent institution.
+        Not every cultural moment needs to produce a hundred-year-old
+        company. Sometimes a thing exists because, for a particular
+        moment in time, a lot of people wanted it. And sometimes
+        that's enough.
+      </p>
+
+      <p>
+        There's something quite human about collectively deciding
+        that we're going to make a big deal out of something small.
+        Especially when so many other things feel outside our control.
+      </p>
+
+      <p>
+        Maybe the small treat isn't really about the treat at all.
+        Maybe it's about having something to anticipate, something
+        to participate in, something that makes an otherwise ordinary
+        Tuesday feel a little more interesting.
+      </p>
+
+      <p>
+        Which brings me to a question I've been entertaining:
+      </p>
+
+      <p>
+        <strong>Does every recession have a small treat superstar?</strong>
+      </p>
+
+      <p>
+        And if so, who's next?
+      </p>
+
+      <p>
+        Because eventually, we'll move on from matcha. The cafes will
+        change hands, the menus will get redesigned, and the internet
+        will find another beverage to photograph from above.
+      </p>
+
+      <p>
+        But I'm willing to bet we'll find something else to obsess over.
+      </p>
+
+      <p class="closing">
+        Until then, I'll have mine iced.
+      </p>
+
+    </div>
+
+    <div class="article-end">
+      ✳ END OF TRANSMISSION ✳
+    </div>
+
+    <div class="author-note">
+      <h3>THANKS FOR GOING DOWN THIS RABBIT HOLE.</h3>
+      <p>
+        More observations, cultural curiosities and unfinished
+        thoughts will appear here. There are always more tabs open.
+      </p>
+    </div>
+
+    <div style="text-align:center; margin-top:30px;">
+      <a href="rabbit-hole.html">← MORE FROM THE RABBIT HOLE</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div>YOU HAVE REACHED THE END OF THIS PARTICULAR RABBIT HOLE.</div>
+    <div>INSIDE HER BRAIN © 2026 — MADE WITH CURIOSITY.</div>
+    <div class="pink">★ THANKS FOR READING. COME BACK SOON. ★</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
